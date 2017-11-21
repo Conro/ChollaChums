@@ -3,7 +3,10 @@
 * put your css here
 */
 
-
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
 
 body, html{
      height: 100vh;
@@ -49,8 +52,12 @@ h4 {
     font-size: 3.5vh;
 }
 
-#footer 	{ height:  10vh; } 	/* header gets some height       	*/
-#mapDiv 	{ height:  90vh; }  /* map gets some height          	*/
+#footer { 
+    width: 100%;
+    height:  7vh;
+    background-color: #8EBBA7
+}
+#mapDiv 	{ height:  93vh; }  /* map gets some height          	*/
 
 #signUpPageDiv img, #loginPageDiv img {
     height: 20vh;

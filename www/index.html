@@ -11,18 +11,23 @@
 	<!-- This is not a secure content policy, should be locked down for prod -->
 	<meta http-equiv="Content-Security-Policy" 
 		content="default-src 'self' data: gap: 'unsafe-inline' 
-					https://ssl.gstatic.com https://*.phonegap.com; 
-				style-src 'self' 'unsafe-inline'; 
+                    https://ssl.gstatic.com 
+                    https://*.phonegap.com
+                    https://*.googleapis.com
+                    https://*.gstatic.com ;
+                style-src 'self' 'unsafe-inline'
+                    https://fonts.googleapis.com;; 
 				script-src  'self' 'unsafe-inline' 'unsafe-eval' 
-					https://*.phonegap.com ;
+                    https://*.phonegap.com
+                    https://*.googleapis.com;
 				media-src *" />	
 	    <link rel="stylesheet" href="./css/bootstrap.min.css">               
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 
 </head>
-<body class="d-flex align-items-center h100"> <!-- no onload - see index.js for "ondeviceready" event listener -->
+<body class="d-flex align-items-center h-100"> <!-- no onload - see index.js for "ondeviceready" event listener -->
     
-	<div id="loginPageDiv" class="container-fluid">
+	<div id="loginPageDiv" class="container-fluid" style="">
         <div class="row">
             <div class="col-12">
                 <img src="./img/chollalogin.JPG" alt="" class="mx-auto d-block">
@@ -158,13 +163,32 @@
         </div>
     </div>
 
+    <div id="homePageDiv" class="container-fluid" style="display:none">
+        <div class="row" style="border:1pt solid black">
+            <div id="mapDiv" class="col-12">
+
+            </div>
+        </div>
+        <div id="" class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-4"><button class="btn btn-block btn-primary">HELLO</button></div>
+                <div class="col-4"><button class="btn btn-block">HELLO</button></div>
+                <div class="col-4"><button class="btn btn-block">HELLO</button></div>
+            </div>
+        </div>
+    </div>
+
+
     
 
-	<script src="cordova.js" type="text/javascript"></script>
+    <script src="cordova.js" type="text/javascript"></script>
 	<script src="./js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="./js/bootstrap.bundle.min.js" type="text/javascript"></script>
-	<script src="./js/mysql.js" type="text/javascript"></script>
+    <script src="./js/mysql.js" type="text/javascript"></script>
     <script src="./js/index.js" type="text/javascript"></script>
+    <script async defer	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsGwlbU1AZYpGBwio6ll1kiwknKSuUIVk&callback=initMap"></script>
+    
+    
 
 </body>
 </html>

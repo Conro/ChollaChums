@@ -14,12 +14,24 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady(){
-	console.log("JS loaded, DOC READY");
+    console.log("JS loaded, DOC READY");
 }
 
 /*====================*/
 /* put functions here */
 /*====================*/
+
+function initMap() {
+    var mapElement 		= document.getElementById('mapDiv');
+    
+    var geoLocationASU 	= {lat: 33.4166317, lng: -111.9341069};
+    var mapOptions 		= {zoom: 18, center: geoLocationASU};
+
+    var mapper = new google.maps.Map(mapElement, mapOptions);
+
+    var markerOptions 	= {position: geoLocationASU, map: mapper};
+    var marker = new google.maps.Marker(markerOptions);
+}
 
 $("#signUpButton").click(function (e) { 
     e.preventDefault();
@@ -91,6 +103,16 @@ $("#signUpForm").submit(function(e){
         $('#regSuccessAlert').html(welcomeString)
         $('#regSuccessDiv').fadeIn("fast");
     });*/
+});
+
+$("#loginButton").click(function (e) { 
+    e.preventDefault();
+
+    //Fade in/out
+    $('#loginPageDiv').fadeOut( "fast", function() {
+        $('#homePageDiv').fadeIn("fast");
+    });
+
 });
 
 /*$("#registerButton").click(function (e) { 
