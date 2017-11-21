@@ -1,0 +1,60 @@
+/*
+* index.css
+* put your css here
+*/
+
+
+
+body, html{
+     height: 100vh;
+}
+
+body {
+    background-color: #D2E1DE;
+}
+
+.loginButton {
+    background-color: #8EBBA7;
+    color: #ffffff;
+}
+
+.signUpButton {
+    background-color: #8EBBA7;
+    color: #ffffff;
+}
+
+
+#loginPageDiv input, #signUpPageDiv input {
+    border: 1px solid #8EBBA7;
+    margin-bottom: 0.5em;
+}
+
+#signUpPageDiv select {
+    border: 1px solid #8EBBA7;
+    margin-bottom: 0.5em;
+}
+
+#signUpPageDiv option {
+    padding: 0;
+}
+
+.alert-success {
+    background-color: #8EBBA7;
+}
+
+h2 {
+    font-size: 8vh;
+}
+h4 {
+    font-size: 3.5vh;
+}
+
+#footer 	{ height:  10vh; } 	/* header gets some height       	*/
+#mapDiv 	{ height:  90vh; }  /* map gets some height          	*/
+
+#signUpPageDiv img, #loginPageDiv img {
+    height: 20vh;
+}
+
+
+
