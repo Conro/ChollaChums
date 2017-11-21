@@ -115,6 +115,16 @@ $("#loginButton").click(function (e) {
 
 });
 
+$("#mapToLoginButton").click(function (e) { 
+    e.preventDefault();
+
+    //Fade in/out
+    $('#homePageDiv').fadeOut( "fast", function() {
+        $('#loginPageDiv').fadeIn("fast");
+    });
+
+});
+
 /*$("#registerButton").click(function (e) { 
     $("#signUpForm").submit()
     //e.preventDefault();
