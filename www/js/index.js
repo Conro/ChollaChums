@@ -13,6 +13,7 @@
 /* wait until all phonegap/cordova is loaded then call onDeviceReady*/
 document.addEventListener("deviceready", onDeviceReady, false);
 
+//only for mobile
 function onDeviceReady(){
     console.log("JS loaded, DOC READY");
 }
@@ -43,12 +44,6 @@ $("#signUpButton").click(function (e) {
         $('#signUpForm')[0].reset();
         resetAlerts();
     });
-
-    /*$('#loginPageDiv').hide(function(){
-        $('#loginPageDiv').fadeOut("fast");
-    }); 
-    $('#signUpPageDiv').show();*/
-
 });
 
 $("#signUpBackButton").click(function (e) { 
@@ -59,18 +54,15 @@ $("#signUpBackButton").click(function (e) {
         $('#loginPageDiv').fadeIn("fast");
         resetAlerts();
     });
-
-    //$('#loginPageDiv').show(); 
-    //$('#signUpPageDiv').hide(); 
 });
 
 $("#signUpForm").submit(function(e){
 
     console.log("signUpForm submitted");
-    var name = $('#nameInput').val();
+    var name = $('#nameInputReg').val();
     var username = $('#usernameInputReg').val();
-    var email = $('#emailInput').val();
-    var uni = $('#universitySelectInput').val();
+    var email = $('#emailInputReg').val();
+    var uni = $('#universitySelectInputReg').val();
     var pass = $('#passInputReg').val();
     var confPass = $('#passConfInputReg').val();
     console.log(name);
@@ -86,23 +78,16 @@ $("#signUpForm").submit(function(e){
         
         $('#signUpPageDiv').fadeOut( "fast", function() {
             $('#loginPageDiv').fadeIn("fast");
-            $('#regSuccessAlert').html(welcomeString)
+            $('#regSuccessAlert').html(welcomeString);
+            $('#userLogin').val(username);
             $('#regSuccessAlertDiv').fadeIn("fast");
         });
     }
     else {
         var warningString = "<strong>Oops!<br></strong>Passwords do no match!";  
-        $('#regWarningAlert').html(warningString)   
+        $('#regWarningAlert').html(warningString);   
         $('#regWarningAlertDiv').fadeIn("fast");   
     }
-    /*
-    var welcomeString = "<strong>Woot! Welcome " + username + "<br></strong> Your account was created, try logging in!";
-
-    $('#signUpPageDiv').fadeOut( "fast", function() {
-        $('#loginPageDiv').fadeIn("fast");
-        $('#regSuccessAlert').html(welcomeString)
-        $('#regSuccessDiv').fadeIn("fast");
-    });*/
 });
 
 $("#loginButton").click(function (e) { 
@@ -121,6 +106,7 @@ $("#mapToLoginButton").click(function (e) {
     //Fade in/out
     $('#homePageDiv').fadeOut( "fast", function() {
         $('#loginPageDiv').fadeIn("fast");
+        resetAlerts();
     });
 
 });
