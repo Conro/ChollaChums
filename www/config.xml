@@ -20,11 +20,10 @@
     <!-- Change 'name', 'description', and 'author' tags below               -->
     <!-- =================================================================== -->
 
-    <name>APPNAME</name>
+    <name>Cholla Chums</name>
 
     <description>
-        Nice description goes here, specify good comments, its uses, 
-        and purpose
+        Cholla Chums App ~ CIS430 Final Project
     </description>
 
     <author email="cwroble@asu.edu" href="http://www.asu.edu">

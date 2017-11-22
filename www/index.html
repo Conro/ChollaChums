@@ -21,56 +21,81 @@
                     https://*.phonegap.com
                     https://*.googleapis.com;
 				media-src *" />	
-	    <link rel="stylesheet" href="./css/bootstrap.min.css">               
-		<link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./misc/font-awesome/css/font-awesome.min.css">              
+		<link rel="stylesheet" href="./css/index.css" />
 
 </head>
 <body> <!-- no onload - see index.js for "ondeviceready" event listener d-flex align-items-center h-100 noPadding -->
     <div class="d-flex align-items-center h-100">
+
+        <!-- Login Page -->
         <div id="loginPageDiv" class="container-fluid"> 
+
+            <!-- Login Page ~ Login Logo Img -->
             <div class="row">
                 <div class="col-12">
                     <img src="./img/chollalogin.JPG" alt="" class="mx-auto d-block">
                 </div>
             </div>
+
+            <!-- Login Page ~ App Name Title -->
             <div class="row">
                 <div class="col-12">
                     <h2 class="text-center">Cholla Chums</h2>
                 </div>
             </div>
+
+            <!-- Login Page ~ Prompt ("Insert something catchy here") -->
             <div class="row">
                 <div class="col-12">
                     <h4 class="text-center text-muted">Don't be a chump.</h4>
                 </div>
             </div>
+
+            <!-- Login Page ~ Alert -->
             <div class="row justify-content-center" id="regSuccessAlertDiv" style="display:none">
                 <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                     <div class="alert alert-success mx-auto d-block text-center" id="regSuccessAlert"></div>
                 </div>
             </div>
             
+            <!-- Not sure if we will keep this wrapped in a form tag, will leave for later  -->
             <!--<form id="loginForm">-->
                 <div class="form-group">
+
+                    <!-- Login Page ~ Username Input -->
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <input type="text" required class="form-control text-left" placeholder="Username">
+                            <div class="input-group">
+                                <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-user fa-fw"></i></span>
+                                <input id="userLogin" type="text" required class="form-control text-left" placeholder="Username">
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Login Page ~ Password Input -->
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <input type="password" required class="form-control text-left" placeholder="Password">
+                            <div class="input-group">
+                                <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-key fa-fw"></i></span>
+                                <input type="password" required class="form-control text-left" placeholder="Password">
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Login Page ~ Login Button -->
                 <div class="form-group">
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                             <button id="loginButton" type="button" class="btn loginButton btn-block">Login</button>     
                         </div>
                     </div>
-            </div>
+                </div>
             <!--</form>-->
             
+            <!-- Login Page ~ Sign Up (Become a chum) Button -->
             <div class="form-group">
                 <div class="row justify-content-center">
                     <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
@@ -80,19 +105,23 @@
             </div>
         </div>
 
+        <!-- Sign Page -->
         <div id="signUpPageDiv" class="container-fluid" style="display: none">
             <form id="signUpForm">
+                <!-- Sign Up Page ~ Logo Img -->
                 <div class="row">
                     <div class="col-12">
                         <img src="./img/chollaregister.JPG" alt="" class="mx-auto d-block">
                     </div>
                 </div>
+                <!-- Sign Up Page ~ All Fields Required Prompt -->
                 <div class="row">
                     <div class="col-12">
                         <h4 class="text-center">All Fields Required</h4>
                     </div>
                 </div>
 
+                <!-- Sign Up Page ~ Validation Warning Alert -->
                 <div class="row justify-content-center" id="regWarningAlertDiv" style="display:none">
                     <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                         <div class="alert alert-danger mx-auto d-block text-center" id="regWarningAlert"></div>
@@ -100,50 +129,75 @@
                 </div>
 
                 <div class="form-group">
+                    <!-- Sign Up Page ~ Name Input -->
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <input id="nameInput" type="text" class="form-control text-left" placeholder="Your Name" required>
+                            <div class="input-group">
+                                <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-address-card fa-fw"></i></span>
+                                <input id="nameInputReg" type="text" class="form-control text-left" placeholder="Your Name" required>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Sign Up Page ~ Username Input -->
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <input id="usernameInputReg" type="text" class="form-control text-left" placeholder="Username" required>
+                            <div class="input-group">
+                                <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-user fa-fw"></i></span>
+                                <input id="usernameInputReg" type="text" class="form-control text-left" placeholder="Username" required>
+                            </div>                            
                         </div>
                     </div>
 
+                    <!-- Sign Up Page ~ Email Input -->
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <input id="emailInput" type="text" class="form-control text-left" placeholder="Email" required>
+                            <div class="input-group">
+                                <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-envelope fa-fw"></i></span>
+                                <input id="emailInputReg" type="text" class="form-control text-left" placeholder="Email" required>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Sign Up Page ~ University Select -->
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <select class="form-control" id="universitySelectInput" required>
-                                <option selected hidden value="">University</option>
-                                <option value="Arizona State University" >Arizona State University</option>
-                                <option value="Northern Arizona University" >Northern Arizona University</option>
-                                <option value="University of Arizona" >University of Arizona</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
+                            <div class="input-group">
+                                    <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-graduation-cap fa-fw"></i></span>
+                                    <select class="form-control" id="universitySelectInputReg" required>
+                                            <option selected hidden value="">University</option>
+                                            <option value="Arizona State University" >Arizona State University</option>
+                                            <option value="Northern Arizona University" >Northern Arizona University</option>
+                                            <option value="University of Arizona" >University of Arizona</option>
+                                            <option>placeholder</option>
+                                            <option>placeholder</option>
+                                    </select>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Sign Up Page ~ Password Input -->
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <input id="passInputReg" type="password" class="form-control text-left" placeholder="Password" required>
+                            <div class="input-group">
+                                <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-key fa-fw"></i></span>
+                                <input id="passInputReg" type="password" class="form-control text-left" placeholder="Password" required>
+                            </div>
                         </div>
                     </div>
-
+                    
+                    <!-- Sign Up Page ~ Confirm Password Input -->
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <input id="passConfInputReg" type="password" class="form-control text-left" placeholder="Confirm Password" required>
+                            <div class="input-group">
+                                <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-key fa-fw"></i></span>
+                                <input id="passConfInputReg" type="password" class="form-control text-left" placeholder="Confirm Password" required>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+            <!-- Sign Up Page ~ Register Button -->
             <div class="form-group">
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
@@ -152,8 +206,8 @@
                     </div>
                 </div>    
             </form>
-            
-            
+
+            <!-- Sign Up Page ~ Back Button -->
             <div class="form-group">
                 <div class="row justify-content-center">
                     <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
@@ -163,48 +217,31 @@
             </div>
         </div>
 
-        <div id="homePageDiv" class="container-fluid" style="display:none">
-            <div class="row">
-                <div class="col-12 noPadding">
-                    <div id="homePageHeader" class="" style="">
-                        
-                            <div class="">test</div>
-                            <div class="">test</div>
-                            <div class="">test</div>
-                            <div class="">test</div>
-                        
-                        
-                        
-                    </div>
-                    <div id="mapDiv" class="">
-
-                    </div>
-                    <div id="footer" class="">
-
-                    </div>
-                </div>
-            </div>
-<!--
-            <div id="homePageHeader" class="container-fluid noPadding" style="">
+        <!-- Landing Page Div 
+             Shows map and events nearby-->
+        <div id="homePageDiv" class="container-fluid noPadding" style="display:none">
+            <div id="homePageHeader" class="container-fluid">
                 <div class="row">
-                    <div class="col-8" style="">15 Events</div>
-                    <div class="col-2" style="">List</div>
-                    <div class="col-2 noPadding" style=""><button type="button" id="mapToLoginButton" class="btn btn-danger btn-block">BACK</button></div>
+                    <div class="col-3">
+                        <a id="mapToLoginButton" class="btn btn-danger" href="#">
+                            <i class="fa fa-trash-o fa-lg"></i> BACK</a>
+                    </div>
+                    <div class="col-3">test</div>
+                    <div class="col-3">test</div>
+                    <div class="col-3">test</div>
                 </div>
             </div>
-            <div class="row" style="">
-                <div id="mapDiv" class="col-12">
-
-                </div>
+            <div id="mapDiv" class="">
+                <!-- Map will render here -->                   
             </div>
             <div id="footer" class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-3 noPadding"><button class="btn btn-block btn-primary">Explore Placeholder</button></div>
-                    <div class="col-3 noPadding"><button class="btn btn-block">Calendar Placeholder</button></div>
-                    <div class="col-3 noPadding"><button class="btn btn-block">Messeges Placeholder</button></div>
-                    <div class="col-3 noPadding"><button class="btn btn-block">Profile Placeholder</button></div>
+                <div class="row">
+                    <div class="col-3">Explore Placeholder</div>
+                    <div class="col-3">Calendar Placeholder</div>
+                    <div class="col-3">Messeges Placeholder</div>
+                    <div class="col-3">Profile Placeholder</div>
                 </div>
-            </div>-->
+            </div>
         </div>
     </div> 
 
