@@ -58,21 +58,23 @@ h4 {
 
 #footer { 
     width: 100%;
-    height:  7vh;
+    height:  8vh;
     background-color: #8EBBA7;
     border-top: 0.25em solid #648476;
+    font-size: 2vh;
 }
-#mapDiv 	{ height:  86vh; }  /* map gets some height          	*/
+
+
+#mapDiv 	{ height:  84vh; }  /* map gets some height          	*/
 
 #signUpPageDiv img, #loginPageDiv img {
     height: 20vh;
 }
 
 #homePageHeader {
-    height: 7vh;
+    height: 8vh;
     background-color: #ffffff;
-    /*border-bottom: 0.25em solid #648476;*/
-    border: 0.25em solid #000000;
+    border-bottom: 0.25em solid #648476;
 }
 
 #loginPageDiv .alert, #signUpPageDiv .alert {
@@ -94,6 +96,11 @@ span i {
 
 .iconSpan {
     background: #8EBBA7;
+}
+
+.headerIcon {
+    color: #8EBBA7;
+    font-size: 5.5vh;
 }
 
 
