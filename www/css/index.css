@@ -71,11 +71,29 @@ h4 {
 #homePageHeader {
     height: 7vh;
     background-color: #ffffff;
-    border-bottom: 0.25em solid #648476;
+    /*border-bottom: 0.25em solid #648476;*/
+    border: 0.25em solid #000000;
+}
+
+#loginPageDiv .alert, #signUpPageDiv .alert {
+    padding: .20em;
 }
 
 .centerDiv {
     margin: auto auto;
+}
+
+.iconFitInput {
+    border: 1px solid #8EBBA7;
+    height: 38px;
+}
+
+span i {
+    color: #ffffff;
+}
+
+.iconSpan {
+    background: #8EBBA7;
 }
 
 
