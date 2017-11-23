@@ -1,6 +1,9 @@
-function login(username, password) {
+function login(username, password, callback) {
 
     var success = false;
+    var statusMsg = "";
+
+    $('#loginLoadingDiv').fadeIn("fast");
 
     var query = "SELECT * FROM users \
     WHERE username = '"+ username + "'";
@@ -13,27 +16,35 @@ function login(username, password) {
         query, 
         function (data) {
             if (data.Success){ 
-                console.log(data);
-                console.log(username + " " + password);
-                console.log("pre check" + success);
 
+                //Check if results length does not equal 0 (this means user was found).
                 if (data.Result.length !== 0){
+
+                    //If user was found, check if supplied password matches password stored in the database.
                     if (data.Result[0].password === password){
-                        console.log(data);
+                        statusMsg = "Passwords matched, authorized login";
                         success = true;
                     }
+                    else {
+                        statusMsg = "Your login details are incorrect!";
+                        success = false;
+                    }
                 }
+                //Results length is 0 meaning no user found by that username.
                 else {
-                    console.log("No results");
+                    statusMsg = "Your login details are incorrect!";
                     success = false;
                 }
             }
+            //Query was not successful.
             else {
-                console.log("Failure");
+                statusMsg = "There was a problem connecting to the server!";
                 success = false;
             }
-    });
 
-    return success;
+            //Callback after function completes
+            callback(success);
+            $('#loginLoadingDiv').fadeOut("fast");
+    });
 }
 

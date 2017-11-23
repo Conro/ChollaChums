@@ -5,9 +5,20 @@
 
 "use strict;"
 
-/*===========================*/
-/* put global variables here */
-/*===========================*/
+//Page divs
+var loginPageDiv = $('#loginPageDiv');
+var signUpPageDiv = $('#signUpPageDiv'); 
+var homePageDiv = $('#homePageDiv'); 
+
+//Alert vars
+var alertDangerClass = "alert alert-danger mx-auto d-block text-center";
+var alertSuccessClass = "alert alert-success mx-auto d-block text-center";
+var loginPageAlertDiv = $('#loginPageAlertDiv');
+var signUpPageAlertDiv = $('#signUpPageAlertDiv');
+var loginPageAlert = $('#loginPageAlert');
+var signUpPageAlert = $('#signUpPageAlert')
+
+
 
 
 /* wait until all phonegap/cordova is loaded then call onDeviceReady*/
@@ -38,8 +49,8 @@ $("#signUpButton").click(function (e) {
     e.preventDefault();
 
     //Fade in/out
-    $('#loginPageDiv').fadeOut( "fast", function() {
-        $('#signUpPageDiv').fadeIn("fast");
+    $(loginPageDiv).fadeOut( "fast", function() {
+        $(signUpPageDiv).fadeIn("fast");
         //Reset signUpForm
         $('#signUpForm')[0].reset();
         resetAlerts();
@@ -50,8 +61,8 @@ $("#signUpBackButton").click(function (e) {
     e.preventDefault();
 
     //Fade in/out
-    $('#signUpPageDiv').fadeOut( "fast", function() {
-        $('#loginPageDiv').fadeIn("fast");
+    $(signUpPageDiv).fadeOut( "fast", function() {
+        $(loginPageDiv).fadeIn("fast");
         resetAlerts();
     });
 });
@@ -74,19 +85,35 @@ $("#signUpForm").submit(function(e){
     e.preventDefault();
 
     if (pass === confPass){
+        //Construct welcome string
         var welcomeString = "<strong>Woot! Welcome " + username + "<br></strong> Your account was created, try logging in!";
         
-        $('#signUpPageDiv').fadeOut( "fast", function() {
-            $('#loginPageDiv').fadeIn("fast");
-            $('#regSuccessAlert').html(welcomeString);
-            $('#userLogin').val(username);
-            $('#regSuccessAlertDiv').fadeIn("fast");
+        $(signUpPageDiv).fadeOut( "fast", function() {
+            $(loginPageDiv).fadeIn("fast");
+
+            //Add appropriate styles and msg to alert
+            $(loginPageAlert).addClass(alertSuccessClass)
+            $(loginPageAlert).html(welcomeString);
+
+            //Set username input value with newly created username
+            $('#userLoginInput').val(username);
+
+            //Show the alert
+            $(loginPageAlertDiv).fadeIn("fast");
         });
     }
     else {
-        var warningString = "<strong>Oops!<br></strong>Passwords do no match!";  
-        $('#regWarningAlert').html(warningString);   
-        $('#regWarningAlertDiv').fadeIn("fast");   
+        //Construct error string
+        var warningString = "<strong>Oops!<br></strong>Passwords do no match!"; 
+        
+        //Add appropriate styles and msg to alert
+        $(signUpPageAlert).addClass(alertDangerClass)
+        $(signUpPageAlert).html(warningString);
+
+        $('#passConfInputReg').css("border", "1px solid red");
+        $('#passInputReg').css("border", "1px solid red")
+   
+        $(signUpPageAlertDiv).fadeIn("fast");   
     }
 });
 
@@ -99,23 +126,28 @@ $("#loginButton").click(function (e) {
     username = $('#userLoginInput').val();
     password = $('#passwordLoginInput').val();
 
-    var test = login(username, password);
-    console.log(test);
+    login(username, password, function(success, statusMsg){
+        if(success) {
+            $(loginPageDiv).slideUp( "slow", function() {
+                $(homePageDiv).fadeIn("fast");
+            });
+        }
+        else {
+            
+        }
+    });
+    //login(username, password, HelloWorld);
 
     //Fade in/out
-    if(test) {
-        $('#loginPageDiv').fadeOut( "fast", function() {
-            $('#homePageDiv').fadeIn("fast");
-        });
-    }
+    
 });
 
 $("#mapToLoginButton").click(function (e) { 
     e.preventDefault();
 
     //Fade in/out
-    $('#homePageDiv').fadeOut( "fast", function() {
-        $('#loginPageDiv').fadeIn("fast");
+    $(homePageDiv).fadeOut( "fast", function() {
+        $(loginPageDiv).fadeIn("fast");
         resetAlerts();
     });
 
@@ -145,9 +177,15 @@ $("#mapToLoginButton").click(function (e) {
 });*/
 
 function resetAlerts() {
-    $('#regWarningAlert').html("");
-    $('#regWarningAlertDiv').hide();
+    //Reset login page alert
+    $(loginPageAlert).html("");
+    $(loginPageAlertDiv).hide();
 
-    $('#regSuccessAlert').html("");
-    $('#regSuccessAlertDiv').hide();
+    //Reset sign up page alert
+    $(signUpPageAlert).html("");
+    $(signUpPageAlertDiv).hide();
+
+    //Reset red border around password inputs (when they don't match the border turns red)
+    $('#passConfInputReg').css("border", "1px solid #8EBBA7");
+    $('#passInputReg').css("border", "1px solid #8EBBA7")
 }
