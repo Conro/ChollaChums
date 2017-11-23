@@ -93,11 +93,21 @@ $("#signUpForm").submit(function(e){
 $("#loginButton").click(function (e) { 
     e.preventDefault();
 
-    //Fade in/out
-    $('#loginPageDiv').fadeOut( "fast", function() {
-        $('#homePageDiv').fadeIn("fast");
-    });
+    var username = "";
+    var password = "";
 
+    username = $('#userLoginInput').val();
+    password = $('#passwordLoginInput').val();
+
+    var test = login(username, password);
+    console.log(test);
+
+    //Fade in/out
+    if(test) {
+        $('#loginPageDiv').fadeOut( "fast", function() {
+            $('#homePageDiv').fadeIn("fast");
+        });
+    }
 });
 
 $("#mapToLoginButton").click(function (e) { 
