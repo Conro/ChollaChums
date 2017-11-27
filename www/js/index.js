@@ -19,8 +19,6 @@ var loginPageAlert = $('#loginPageAlert');
 var signUpPageAlert = $('#signUpPageAlert')
 
 
-
-
 /* wait until all phonegap/cordova is loaded then call onDeviceReady*/
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -48,6 +46,10 @@ function initMap() {
 $("#signUpButton").click(function (e) { 
     e.preventDefault();
 
+    /*$.get("http://chollachumsapi.azurewebsites.net/users", function( data ) {
+        console.log(data);
+      });*/
+
     //Fade in/out
     $(loginPageDiv).fadeOut( "fast", function() {
         $(signUpPageDiv).fadeIn("fast");
@@ -62,71 +64,64 @@ $("#signUpBackButton").click(function (e) {
 
     //Fade in/out
     $(signUpPageDiv).fadeOut( "fast", function() {
-        $(loginPageDiv).fadeIn("fast");
+        resetLoginForm(true, true);
         resetAlerts();
+        $(loginPageDiv).fadeIn("fast");
     });
 });
 
 $("#signUpForm").submit(function(e){
 
     console.log("signUpForm submitted");
-    var name = $('#nameInputReg').val();
-    var username = $('#usernameInputReg').val();
-    var email = $('#emailInputReg').val();
-    var uni = $('#universitySelectInputReg').val();
+
+    //testInsert(function(success, statusMsg){
+        //console.log(success);
+        //console.log(statusMsg);
+    //});
+
     var pass = $('#passInputReg').val();
     var confPass = $('#passConfInputReg').val();
-    console.log(name);
-    console.log(username);
-    console.log(email);
-    console.log(uni);
-    console.log(pass);
-    console.log(confPass);
-    e.preventDefault();
+    
 
+    e.preventDefault();
+    
     if (pass === confPass){
         //Construct welcome string
-        var welcomeString = "<strong>Woot! Welcome " + username + "<br></strong> Your account was created, try logging in!";
-        
-        $(signUpPageDiv).fadeOut( "fast", function() {
-            $(loginPageDiv).fadeIn("fast");
+        //var welcomeString = "<strong>Woot! Welcome " + username + "<br></strong> Your account was created, try logging in!";
 
-            //Add appropriate styles and msg to alert
-            $(loginPageAlert).addClass(alertSuccessClass)
-            $(loginPageAlert).html(welcomeString);
+        createAccount(function(success, statusMsg, newUser){
+            
+            if (success){
+                $(signUpPageDiv).fadeOut( "fast", function() {
+                    resetLoginForm(true, false);
+                    $(loginPageDiv).fadeIn("fast");
 
-            //Set username input value with newly created username
-            $('#userLoginInput').val(username);
+                    //Create alert
+                    createAlert('success', loginPageAlertDiv, loginPageAlert, statusMsg);
 
-            //Show the alert
-            $(loginPageAlertDiv).fadeIn("fast");
-        });
+                    //Set username input value with newly created username
+                    $('#userLoginInput').val(newUser); 
+                });
+            }
+            else if(!success){
+                createAlert('danger', signUpPageAlertDiv, signUpPageAlert, statusMsg);
+            }
+        });     
     }
     else {
         //Construct error string
         var warningString = "<strong>Oops!<br></strong>Passwords do no match!"; 
-        
-        //Add appropriate styles and msg to alert
-        $(signUpPageAlert).addClass(alertDangerClass)
-        $(signUpPageAlert).html(warningString);
 
-        $('#passConfInputReg').css("border", "1px solid red");
-        $('#passInputReg').css("border", "1px solid red")
-   
-        $(signUpPageAlertDiv).fadeIn("fast");   
+        //Create alert
+        createAlert('danger', signUpPageAlertDiv, signUpPageAlert, warningString);
     }
 });
 
-$("#loginButton").click(function (e) { 
+//$("#loginButton").click(function (e) { 
+$("#loginForm").submit(function (e) { 
     e.preventDefault();
 
-    var username = "";
-    var password = "";
-
-    username = $('#userLoginInput').val();
-    password = $('#passwordLoginInput').val();
-
-    login(username, password, function(success, statusMsg){
+    login(function(success, statusMsg){
         if(success) {
             $(loginPageDiv).slideUp( "slow", function() {
                 $(homePageDiv).fadeIn("fast");
@@ -188,4 +183,56 @@ function resetAlerts() {
     //Reset red border around password inputs (when they don't match the border turns red)
     $('#passConfInputReg').css("border", "1px solid #8EBBA7");
     $('#passInputReg').css("border", "1px solid #8EBBA7")
+}
+
+
+function checkForm(formName){
+    
+    var canSubmit = true;
+
+    //Get all the input elements in the form. Case changes depending on form
+    if (formName === "loginForm") {
+        var formElements = document.forms["loginForm"].getElementsByTagName("input");
+        var button = $('#loginButton');
+    }
+    else if (formName === "signUpForm") {
+        var formElements = document.forms["signUpForm"].getElementsByTagName("input");
+        var button = $('#registerButton');
+    }
+    
+    //Loop through the input elements and make sure they have values.
+    //If one of them has a 0 length then the login button is disabled
+    for (var i = 0; i < formElements.length; i++) {
+        if (formElements[i].value.length == 0) {
+            canSubmit = false;
+        }
+    }
+
+    if (canSubmit) {
+        $(button).prop('disabled', false);
+    }
+    else {
+        $(button).prop('disabled', true);
+    }
+}
+
+function resetLoginForm(user, pass) {
+    if (user){
+        $('#userLoginInput').val("");
+    }
+    if (pass){
+        $('#passwordLoginInput').val("");
+    }
+}
+
+function createAlert(type, pdiv, div, msg) {
+
+    var alertClass = "alert alert-" + type + " mx-auto d-block text-center";
+
+    //Add appropriate styles and msg to alert
+    $(div).addClass(alertClass);
+    $(div).html(msg);
+
+    //Show the alert
+    $(pdiv).fadeIn("fast");
 }

@@ -14,7 +14,11 @@
                     https://ssl.gstatic.com 
                     https://*.phonegap.com
                     https://*.googleapis.com
-                    https://*.gstatic.com ;
+                    https://*.gstatic.com
+                    http://chollachumsapi.azurewebsites.net;
+                connect-src 'self'
+                http://chollachumsapi.azurewebsites.net
+                http://localhost:8000/;
                 style-src 'self' 'unsafe-inline'
                     https://fonts.googleapis.com;
 				script-src  'self' 'unsafe-inline' 'unsafe-eval' 
@@ -68,7 +72,7 @@
             </div>
             
             <!-- Not sure if we will keep this wrapped in a form tag, will leave for later  -->
-            <!--<form id="loginForm">-->
+            <form id="loginForm" name="loginForm">
                 <div class="form-group">
 
                     <!-- Login Page ~ Username Input -->
@@ -76,7 +80,7 @@
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                             <div class="input-group">
                                 <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-user fa-fw"></i></span>
-                                <input id="userLoginInput" type="text" required class="form-control text-left" placeholder="Username">
+                                <input id="userLoginInput" oninput="checkForm('loginForm')" type="text" required class="form-control text-left" placeholder="Username">
                             </div>
                         </div>
                     </div>
@@ -86,7 +90,7 @@
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                             <div class="input-group">
                                 <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-key fa-fw"></i></span>
-                                <input id="passwordLoginInput" type="password" required class="form-control text-left" placeholder="Password">
+                                <input id="passwordLoginInput" oninput="checkForm('loginForm')" type="password" required class="form-control text-left" placeholder="Password">
                             </div>
                         </div>
                     </div>
@@ -96,11 +100,11 @@
                 <div class="form-group">
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <button id="loginButton" type="button" class="btn loginButton btn-block">Login</button>     
+                            <button disabled id="loginButton" type="submit" class="btn loginButton btn-block">Login</button>     
                         </div>
                     </div>
                 </div>
-            <!--</form>-->
+            </form>
             
             <!-- Login Page ~ Sign Up (Become a chum) Button -->
             <div class="form-group">
@@ -114,45 +118,46 @@
 
         <!-- Sign Up Page -->
         <div id="signUpPageDiv" class="container-fluid" style="display: none;">
-            <form id="signUpForm">
-                <!-- Sign Up Page ~ Logo Img -->
-                <div class="row">
-                    <div class="col-12">
-                        <img src="./img/chollaregister.JPG" alt="" class="mx-auto d-block">
-                    </div>
+            
+            <!-- Sign Up Page ~ Logo Img -->
+            <div class="row">
+                <div class="col-12">
+                    <img src="./img/chollaregister.JPG" alt="" class="mx-auto d-block">
                 </div>
-                <!-- Sign Up Page ~ All Fields Required Prompt -->
-                <div class="row">
-                    <div class="col-12">
-                        <h4 class="text-center">All Fields Required</h4>
-                    </div>
+            </div>
+            <!-- Sign Up Page ~ All Fields Required Prompt -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="text-center">All Fields Required</h4>
                 </div>
+            </div>
 
-                <!-- Sign Up Page ~ Validation Warning Alert -->
-                <div class="row justify-content-center" id="signUpPageAlertDiv" style="display:none;">
-                    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                        <div class="" id="signUpPageAlert"></div>
-                    </div>
+            <!-- Sign Up Page ~ Validation Warning Alert -->
+            <div class="row justify-content-center" id="signUpPageAlertDiv" style="display:none;">
+                <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                    <div class="" id="signUpPageAlert"></div>
                 </div>
-
+            </div>
+            
+            <form id="signUpForm" name="signUpForm">
                 <div class="form-group">
-                    <!-- Sign Up Page ~ Name Input -->
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <div class="input-group">
-                                <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-address-card fa-fw"></i></span>
-                                <input id="nameInputReg" type="text" class="form-control text-left" placeholder="Your Name" required>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Sign Up Page ~ Username Input -->
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                             <div class="input-group">
                                 <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-user fa-fw"></i></span>
-                                <input id="usernameInputReg" type="text" class="form-control text-left" placeholder="Username" required>
+                                <input id="usernameInputReg" oninput="checkForm('signUpForm')" type="text" class="form-control text-left" placeholder="Username" required>
                             </div>                            
+                        </div>
+                    </div>
+
+                    <!-- Sign Up Page ~ Name Input -->
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                            <div class="input-group">
+                                <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-address-card fa-fw"></i></span>
+                                <input id="nickNameInputReg" oninput="checkForm('signUpForm')" type="text" class="form-control text-left" placeholder="Nickname" required>
+                            </div>
                         </div>
                     </div>
 
@@ -161,7 +166,7 @@
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                             <div class="input-group">
                                 <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-envelope fa-fw"></i></span>
-                                <input id="emailInputReg" type="text" class="form-control text-left" placeholder="Email" required>
+                                <input id="emailInputReg" oninput="checkForm('signUpForm')" type="text" class="form-control text-left" placeholder="Email" required>
                             </div>
                         </div>
                     </div>
@@ -171,7 +176,7 @@
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                             <div class="input-group">
                                     <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-graduation-cap fa-fw"></i></span>
-                                    <select class="form-control" id="universitySelectInputReg" required>
+                                    <select class="form-control" oninput="checkForm('signUpForm')" id="universitySelectInputReg" required>
                                             <option selected hidden value="">University</option>
                                             <option value="Arizona State University" >Arizona State University</option>
                                             <option value="Northern Arizona University" >Northern Arizona University</option>
@@ -188,7 +193,7 @@
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                             <div class="input-group">
                                 <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-key fa-fw"></i></span>
-                                <input id="passInputReg" type="password" class="form-control text-left" placeholder="Password" required>
+                                <input id="passInputReg" oninput="checkForm('signUpForm')" type="password" class="form-control text-left" placeholder="Password" required>
                             </div>
                         </div>
                     </div>
@@ -198,7 +203,7 @@
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
                             <div class="input-group">
                                 <span class="input-group-addon iconFitInput iconSpan"><i class="fa fa-key fa-fw"></i></span>
-                                <input id="passConfInputReg" type="password" class="form-control text-left" placeholder="Confirm Password" required>
+                                <input id="passConfInputReg" oninput="checkForm('signUpForm')" type="password" class="form-control text-left" placeholder="Confirm Password" required>
                             </div>
                         </div>
                     </div>
@@ -208,7 +213,7 @@
             <div class="form-group">
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <button type="submit" class="btn loginButton btn-block">Register</button>     
+                            <button id="registerButton" type="submit" class="btn loginButton btn-block">Register</button>     
                         </div>
                     </div>
                 </div>    
