@@ -65,10 +65,10 @@ h4 {
 }
 
 
-#mapDiv 	{ height:  84vh; }  /* map gets some height          	*/
+#mapViewDiv, #listViewDiv, #searchViewDiv 	{ height:  84vh; }  /* map gets some height          	*/
 
 #signUpPageDiv img, #loginPageDiv img {
-    height: 20vh;
+    height: 18vh;
 }
 
 #homePageHeader {
@@ -101,6 +101,41 @@ span i {
 .headerIcon {
     color: #8EBBA7;
     font-size: 5.5vh;
+}
+
+.footerIcon {
+    color: #ffffff;
+    font-size: 4vh;
+}
+
+.footerButton {
+    width: 25vw;
+    background-color: transparent;
+    border-radius: 0;
+    font-size: 2vh;
+    color: #ffffff;
+    /*height: 8vh;*/
+}
+
+#footer span {
+    padding-top: 0.5vh;
+}
+
+#homePageMapViewHeader {
+    color: #648476;
+    font-size: 3.5vh;
+    margin-bottom: 0;
+}
+
+#homePageMapViewSubHeader {
+    color: #8EBBA7;
+    font-size: 2vh;
+    margin-bottom: 0;
+}
+
+.testclass {
+    width: 25vw;
+    height: 8vh;
 }
 
 

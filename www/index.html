@@ -231,6 +231,89 @@
 
         <!-- Landing Page Div  Shows map and events nearby-->
         <div id="homePageDiv" class="container-fluid noPadding" style="display:none">
+            <div id="homePageHeader" class="container-fluid noPadding fixed-top">
+                <div class="d-flex justify-content-end align-items-center align-items-start">
+                    <div class="p-1">
+                        <h5 id="homePageMapViewHeader" style="display:none;"></h5>
+                        <h6 id="homePageMapViewSubHeader" style="display:none;"></h6>
+                    </div>
+                    <div class="mr-auto ml-auto p-0">
+                        <a id="mapToLoginButton" class="btn btn-danger" href="#">B</a>
+                    </div>
+                    <div class="p-0">
+                            <a id="buttonHeaderLeft" class="btn btn-default" href="#"><i id="buttonHeaderLeftIcon" class="fa fa-list-ul headerIcon" title="Event List"></i></a>
+                    </div>
+                    <div class="p-0">
+                            <a id="buttonHeaderRight" class="btn btn-default" href="#"><i id="buttonHeaderRightIcon" class="fa fa-search headerIcon" title="Align Left"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map view div -->
+            <div id="mapViewDiv" class="">
+                <!-- Map will render here -->                   
+            </div>
+
+            <!-- List view div -->
+            <div id="listViewDiv" style="display:none;">
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+                <p>LIST VIEW DIV</p>
+            </div>
+
+            <!-- Search view div -->
+            <div id="searchViewDiv" style="display:none;"> 
+                SEARCH VIEW DIV
+            </div>
+
+
+            <div id="footer" class="container-fluid fixed-bottom noPadding">
+                <div class="d-flex justify-content-around">
+                    
+                    <div class="p-0">
+                        <button type="button" class="btn btn-default text-center footerButton noPadding"><span class="fa fa-compass footerIcon"></span><br>Explore</button>
+                    </div>
+
+                    <div class="p-0">
+                        <button type="button" class="btn btn-default text-center footerButton noPadding"><span class="fa fa-calendar footerIcon"></span><br>Explore</button>
+                    </div>
+
+                    <div class="p-0">
+                        <button type="button" class="btn btn-default text-center footerButton noPadding"><span class="fa fa-envelope-o footerIcon"></span><br>Explore</button>
+                    </div>
+
+                    <div class="p-0">
+                        <button type="button" class="btn btn-default text-center footerButton noPadding"><span class="fa fa-user-o footerIcon"></span><br>Explore</button>
+                    </div>        
+                </div>
+            </div>
+        </div>
+<!--
+         Landing Page Div  Shows map and events nearby
+        <div id="homePageDiv" class="container-fluid noPadding" style="display:none">
             <div id="homePageHeader" class="container-fluid noPadding">
                 <div class="d-flex justify-content-end align-items-center">
                     <div class="mr-auto p-0">
@@ -247,7 +330,7 @@
                 </div>
             </div>
             <div id="mapDiv" class="">
-                <!-- Map will render here -->                   
+                Map will render here                  
             </div>
             <div id="footer" class="container-fluid">
                 <div class="row">
@@ -260,7 +343,7 @@
         </div>
     </div> 
 
-<!--
+
     <div id="homePageDiv" class="container-fluid noPadding" style="display:none">
             <div id="homePageHeader" class="container-fluid">
                 <div class="row">
@@ -297,8 +380,6 @@
     <script src="./js/mysql.js" type="text/javascript"></script>
     <script src="./js/login.js" type="text/javascript"></script>
     <script src="./js/index.js" type="text/javascript"></script>
-    
-    <script async defer	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsGwlbU1AZYpGBwio6ll1kiwknKSuUIVk&callback=initMap"></script>
     
     
 
