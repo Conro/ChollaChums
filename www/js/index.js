@@ -251,6 +251,7 @@ $("#loginForm").submit(function (e) {
     login(function(success, statusMsg){
         if(success) {
             $(loginPageDiv).slideUp( "slow", function() {
+                $("#exploreButton").click();
                 $(homePageDiv).fadeIn("fast");
                 if(!mapScriptCreated){
                     loadMapScript('initMap');
@@ -419,3 +420,47 @@ $(buttonHeaderRight).click(function(){
 $('#testButton').click(function(){
     console.log("testButton clicked");
 });
+
+function showTab(event, tabName) {
+    console.log("showTab called");
+    // Declare all variables
+    var i, tabContentElems, tabLinkElems;
+
+    if(tabName === "calendarViewDiv" || tabName === "messagesViewDiv" || tabName === "profileViewDiv"){
+        console.log(tabName + " div is passed");
+
+        if($(buttonHeaderLeft).css('display') !== 'none'){
+            $(buttonHeaderLeft).hide();
+            $(buttonHeaderRight).hide();
+        }
+    }
+    else{
+        console.log(tabName + " div is passed(ELSE)");
+
+        if($(buttonHeaderLeft).css('display') === 'none'){
+            $(buttonHeaderLeft).show();
+            $(buttonHeaderRight).show();
+        }
+    }
+
+    // Get all elements with class="tabContent" and hide them
+    tabContentElems = document.getElementsByClassName("bodyContent");
+    for (i = 0; i < tabContentElems.length; i++) {
+        tabContentElems[i].style.display = "none";
+    }
+
+    // Get all elements with class="tabLink" and remove class "active"
+    tabLinkElems = document.getElementsByClassName("tabLink");
+    for (i = 0; i < tabLinkElems.length; i++) {
+        tabLinkElems[i].className = 
+            tabLinkElems[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the link
+    document.getElementById(tabName).style.display = "block";
+    event.currentTarget.className += " active";
+}
+
+$('#exploreButton').click(function(){
+    console.log("test jquery click");
+})

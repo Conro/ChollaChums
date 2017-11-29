@@ -241,21 +241,23 @@
                         <a id="mapToLoginButton" class="btn btn-danger" href="#">B</a>
                     </div>
                     <div class="p-0">
-                            <a id="buttonHeaderLeft" class="btn btn-default" href="#"><i id="buttonHeaderLeftIcon" class="fa fa-list-ul headerIcon" title="Event List"></i></a>
+                            <!--<a id="buttonHeaderLeft" class="btn btn-default" href="#"><i id="buttonHeaderLeftIcon" class="fa fa-list-ul headerIcon" title="Event List"></i></a>-->
+                            <button id="buttonHeaderLeft" type="button" class="btn btn-default text-center halfLeftPaddingButton headerButton tabLink" style=""><span id="buttonHeaderLeftIcon" class="fa fa-list-ul headerIcon"></span></button>
                     </div>
                     <div class="p-0">
-                            <a id="buttonHeaderRight" class="btn btn-default" href="#"><i id="buttonHeaderRightIcon" class="fa fa-search headerIcon" title="Align Left"></i></a>
+                            <!--<a id="buttonHeaderRight" class="btn btn-default" href="#"><i id="buttonHeaderRightIcon" class="fa fa-search headerIcon" title="Align Left"></i></a>-->
+                            <button id="buttonHeaderRight" type="button" class="btn btn-default text-center halfLeftPaddingButton headerButton tabLink" style=""><span id="buttonHeaderRightIcon" class="fa fa-search headerIcon"></span></button>                            
                     </div>
                 </div>
             </div>
 
             <!-- Map view div -->
-            <div id="mapViewDiv" class="">
+            <div id="mapViewDiv" class="bodyContent" class="">
                 <!-- Map will render here -->                   
             </div>
 
             <!-- List view div -->
-            <div id="listViewDiv" style="display:none;">
+            <div id="listViewDiv" class="bodyContent" style="display:none;">
                 <p>LIST VIEW DIV</p>
                 <p>LIST VIEW DIV</p>
                 <p>LIST VIEW DIV</p>
@@ -285,8 +287,20 @@
             </div>
 
             <!-- Search view div -->
-            <div id="searchViewDiv" style="display:none;"> 
+            <div id="searchViewDiv" class="bodyContent" style="display:none;"> 
                 SEARCH VIEW DIV
+            </div>
+
+            <div id="calendarViewDiv" class="bodyContent" style="display:none;"> 
+                CALENDAR VIEW DIV
+            </div>
+
+            <div id="messagesViewDiv" class="bodyContent" style="display:none;"> 
+                MESSAGES VIEW DIV
+            </div>
+
+            <div id="profileViewDiv" class="bodyContent" style="display:none;"> 
+                PROFILE VIEW DIV
             </div>
 
 
@@ -294,23 +308,24 @@
                 <div class="d-flex justify-content-around">
                     
                     <div class="p-0">
-                        <button type="button" class="btn btn-default text-center footerButton noPadding"><span class="fa fa-compass footerIcon"></span><br>Explore</button>
+                        <button id="exploreButton" type="button" onclick="showTab(event, 'mapViewDiv')" class="btn btn-default text-center footerButton noPadding tabLink" style=""><span class="fa fa-compass"></span><br>Explore</button>
                     </div>
 
                     <div class="p-0">
-                        <button type="button" class="btn btn-default text-center footerButton noPadding"><span class="fa fa-calendar footerIcon"></span><br>Explore</button>
+                        <button id="calendarButton" type="button" onclick="showTab(event, 'calendarViewDiv')" class="btn btn-default text-center footerButton noPadding tabLink"><span class="fa fa-calendar"></span><br>Calendar</button>
                     </div>
 
                     <div class="p-0">
-                        <button type="button" class="btn btn-default text-center footerButton noPadding"><span class="fa fa-envelope-o footerIcon"></span><br>Explore</button>
+                        <button id="messagesButton" type="button" onclick="showTab(event, 'messagesViewDiv')" class="btn btn-default text-center footerButton noPadding tabLink"><span class="fa fa-envelope-o"></span><br>Messages</button>
                     </div>
 
                     <div class="p-0">
-                        <button type="button" class="btn btn-default text-center footerButton noPadding"><span class="fa fa-user-o footerIcon"></span><br>Explore</button>
+                        <button id="profileButton" type="button" onclick="showTab(event, 'profileViewDiv')" class="btn btn-default text-center footerButton noPadding tabLink"><span class="fa fa-user-o"></span><br>Profile</button>
                     </div>        
                 </div>
             </div>
         </div>
+    </div>
 <!--
          Landing Page Div  Shows map and events nearby
         <div id="homePageDiv" class="container-fluid noPadding" style="display:none">
