@@ -18,6 +18,8 @@ var signUpPageAlertDiv = $('#signUpPageAlertDiv');
 var loginPageAlert = $('#loginPageAlert');
 var signUpPageAlert = $('#signUpPageAlert')
 
+
+//Map vars
 var mapScriptCreated = false;
 var mapElement = undefined;
 var markers = [];
@@ -31,7 +33,15 @@ var buttonHeaderLeftIcon = $('#buttonHeaderLeftIcon');
 var buttonHeaderRightIcon = $('#buttonHeaderRightIcon');
 var mapViewDiv = $('#mapViewDiv');
 var listViewDiv = $('#listViewDiv');
+var listViewOutputDiv = $('#listViewOutputDiv');
 var searchViewDiv = $('#searchViewDiv');
+var calendarViewDiv = $('#calendarViewDiv');
+var messagesViewDiv = $('#messagesViewDiv');
+var profileViewDiv = $('#profileViewDiv');
+var eventViewDiv = $('#eventViewDiv');
+var eventViewOutputDiv = $('#eventViewOutputDiv');
+var eventsModified = true;
+var eventDetailsDesto = "";
 
 
 /* wait until all phonegap/cordova is loaded then call onDeviceReady*/
@@ -47,13 +57,14 @@ $( document ).ready(function() {
     console.log("DOC READY");
     mapElement = document.getElementById('mapViewDiv');
     var map = undefined;
+    var eventMap = undefined;
     $('#userLoginInput').focus();
 
     neighborhoods = [
-        {lat: 33.4166317, lng: -111.9341069, title: "WPC"},
-        {lat: 33.416989, lng: -111.933010, title: "WPC McCord"},
-        {lat: 33.416211, lng: -111.938084, title: "Gammage"},
-        {lat: 33.415487, lng: -111.931947, title: "ASU Gym"}
+        {id: 1, lat: 33.4166317, lng: -111.9341069, title: "Zelda Fans Unite!"},
+        {id: 2, lat: 33.416989, lng: -111.933010, title: "Animal Crossing OP Lorem"},
+        {id: 3, lat: 33.416211, lng: -111.938084, title: "I NEED FRIENDS :("},
+        {id: 4, lat: 33.415487, lng: -111.931947, title: "Hey I just met you. And this is crazy"}
       ];
 });
 
@@ -61,6 +72,7 @@ $( document ).ready(function() {
 /* put functions here */
 /*====================*/
 
+//Drops markers on map
 function drop() {
     clearMarkers();
     console.log(neighborhoods);
@@ -69,10 +81,47 @@ function drop() {
     }
 }
 
+//Function that is called when a user wants to see event info. Event = event_id, source = where the function call originated
+function goToEvent(event, source){
+    $(eventViewOutputDiv).empty();
+
+    event = neighborhoods[event-1];
+
+    console.log("go to event clicked");
+
+    //already have the ID so i can just look it up in the array? Unless I need more info I don't have
+    console.log("call API for event id: "+ event);
+
+    //Tell me where you came from so I can go back to the right screen
+    eventDetailsDesto = "";
+    eventDetailsDesto = source;
+
+    //Hide wherver you came from and show the eventViewDiv
+    $(source).fadeOut(function(){
+        $(eventViewDiv).fadeIn();
+    });
+
+    $(eventViewOutputDiv).append("<p>Event name: " + event.title + "</p><p>Event id: "
+                            + event.id)
+
+                            
+    //createEventViewMap("eventViewMapDiv", event);
+}
+
+$('#eventViewBackButton').click(function(){
+
+    $(eventViewDiv).fadeOut(function(){
+        $(eventDetailsDesto).fadeIn();
+    });
+
+});
+
+
+
 function addMarkerWithTimeout(location, timeout) {
     var position = {lat: location.lat, lng: location.lng};
     var title = location.title
-    var content = title;
+    var content = title + "<p><a href=\"#\" onclick=\"goToEvent(" + location.id + ", mapViewDiv); return false;\">Event Details</a></p>";
     var infowindow = new google.maps.InfoWindow()
 
 
@@ -103,25 +152,21 @@ function addMarkerWithTimeout(location, timeout) {
         })(marker,content,infowindow)); 
 
     }, timeout);
-
-
-
-
 }
 
-  function clearMarkers() {
+function clearMarkers() {
     for (var i = 0; i < markers.length; i++) {
-      markers[i].setMap(null);
+        markers[i].setMap(null);
     }
     markers = [];
-  }
+}
 
 function initMap() {
     
     //replace this with current location
     //var geoLocationASU 	= {lat: 33.4166317, lng: -111.9341069};
 
-        console.log(curLatLng);
+    
 
     navigator.geolocation.getCurrentPosition(geolocationSuccess,
         geolocationError,
@@ -163,13 +208,23 @@ function loadMapScript(callback) {
 $("#signUpButton").click(function (e) { 
     e.preventDefault();
 
-    /*$.get("http://chollachumsapi.azurewebsites.net/users", function( data ) {
-        console.log(data);
-      });*/
-
     //Fade in/out
     $(loginPageDiv).fadeOut( "fast", function() {
-        $(signUpPageDiv).fadeIn("fast");
+        $('#registerButton').prop('disabled', true);
+        $('#usernameInputReg').focus();
+
+
+        if($(signUpPageDiv).css('display') === 'none'){
+            $(signUpPageDiv).show();
+            $(signUpLoadingDiv).hide();
+        }
+
+        //$(signUpPageDiv).fadeIn("fast");
+        //$(signUpLoadingDiv).fadeOut("fast");
+
+
+        $(signUpForm).fadeIn("fast");
+
         //Reset signUpForm
         $('#signUpForm')[0].reset();
         resetAlerts();
@@ -188,13 +243,10 @@ $("#signUpBackButton").click(function (e) {
 });
 
 $("#signUpForm").submit(function(e){
+    resetLoadingDivs();
+    resetAlerts();
 
     console.log("signUpForm submitted");
-
-    //testInsert(function(success, statusMsg){
-        //console.log(success);
-        //console.log(statusMsg);
-    //});
 
     var pass = $('#passInputReg').val();
     var confPass = $('#passConfInputReg').val();
@@ -240,6 +292,7 @@ $("#loginForm").submit(function (e) {
     resetAlerts();
 /*
     $(loginPageDiv).slideUp( "slow", function() {
+        $("#exploreButton").click();
         $(homePageDiv).fadeIn("fast");
         if(!mapScriptCreated){
             loadMapScript('initMap');
@@ -260,6 +313,7 @@ $("#loginForm").submit(function (e) {
         }
         else {
             //Create alert
+            resetLoadingDivs();
             createAlert('danger', loginPageAlertDiv, loginPageAlert, statusMsg);
         }
     });
@@ -272,6 +326,7 @@ $("#mapToLoginButton").click(function (e) {
     //Fade in/out
     $(homePageDiv).fadeOut( "fast", function() {
         $(loginPageDiv).fadeIn("fast");
+        $(loginForm).fadeIn("fast");
         resetAlerts();
     });
 
@@ -335,6 +390,9 @@ function createAlert(type, pdiv, div, msg) {
 
     var alertClass = "alert alert-" + type + " mx-auto d-block text-center";
 
+    //clear classes first
+    $(div).removeClass();
+
     //Add appropriate styles and msg to alert
     $(div).addClass(alertClass);
     $(div).html(msg);
@@ -343,26 +401,48 @@ function createAlert(type, pdiv, div, msg) {
     $(pdiv).fadeIn("fast");
 }
 
+$('.clickableDiv').click(function(e){
+    console.log(e);
+    console.log("Div clicked");
+})
 
-$('#testButton').click(function(){
-    drop();
+$('#buttonHeaderLeft').click(function(){
+    //Check length before working with array
+    if(neighborhoods.length !== 0){
+        //Check if the list needs to be rewritten (updated list)
+        if(eventsModified){
+            console.log("events modified, clearing output and rewriting");
+            $('#listViewOutputDiv').empty();
+            neighborhoods.forEach(function(element) {
+                var event = "<div id=" + element.id + " onclick=\"goToEvent(" + element.id + ", listViewDiv); return false;\"><h4>" + element.title + "</h4><p>Description goes here!</p><p>Tags go here!</p><hr></div>"
+                $('#listViewOutputDiv').append(event);
+            }, this);
+
+            //Now that the printed list is up to date, reset this variable to false
+            eventsModified = false;
+        }
+    }
 });
 
 function geolocationSuccess(position) {
     console.log(position.coords.latitude);
     console.log(position.coords.longitude);
-	curLatLng = new google.maps.LatLng({lat: position.coords.latitude, 
-                                        lng: position.coords.longitude});
-                                        
+    //current lat/lng
+	//curLatLng = new google.maps.LatLng({lat: position.coords.latitude, 
+    //                                    lng: position.coords.longitude});
+       
+    //test lat/lng (asu)
     curLatLng = new google.maps.LatLng({lat: 33.4166317,
                                         lng: -111.9341069});
 
     //var geoLocationASU 	= {lat: 33.4166317, lng: -111.9341069};
     mapGeolocation(curLatLng, drop);
+
+    //inject db call here for events by radius
 }
 
 function geolocationError() {
-	alert("Error in geolocation subsystem!");
+	alert("Error in geolocation system!");
 }
 
 function mapGeolocation(position, callback) {
@@ -464,3 +544,14 @@ function showTab(event, tabName) {
 $('#exploreButton').click(function(){
     console.log("test jquery click");
 })
+
+function resetLoadingDivs(div){
+    if(div === undefined){
+        console.log("in undefined block");
+        $(signUpLoadingDiv).hide();
+        $(loginLoadingDiv).hide();
+    }
+    else{
+        $(div).hide();
+    }
+}

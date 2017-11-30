@@ -52,6 +52,9 @@ body {
 h2 {
     font-size: 8vh;
 }
+h3 {
+    font-size: 6vh;
+}
 h4 {
     font-size: 3.5vh;
 }
@@ -65,7 +68,7 @@ h4 {
 }
 
 
-#mapViewDiv, #listViewDiv, #searchViewDiv, #calendarViewDiv, #messagesViewDiv, #profileViewDiv 	{ height:  84vh; }  /* map gets some height          	*/
+#mapViewDiv, #listViewDiv, #searchViewDiv, #calendarViewDiv, #messagesViewDiv, #profileViewDiv, #eventViewDiv 	{ height:  84vh; }  /* map gets some height          	*/
 
 #signUpPageDiv img, #loginPageDiv img {
     height: 18vh;

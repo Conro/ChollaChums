@@ -59,9 +59,9 @@
                 </div>
             </div>
 
+            <!-- Login Page ~ Loading div -->
             <div id="loginLoadingDiv" class="row justify-content-center" style="display:none;">
-                <i class="fa fa-cog fa-spin fa-3x fa-fw" style=""></i>
-                <span class="sr-only">Loading...</span>
+                <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
             </div>
 
             <!-- Login Page ~ Alert -->
@@ -104,16 +104,18 @@
                         </div>
                     </div>
                 </div>
-            </form>
-            
-            <!-- Login Page ~ Sign Up (Become a chum) Button -->
-            <div class="form-group">
-                <div class="row justify-content-center">
-                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
-                        <button id="signUpButton" type="button" class="btn signUpButton btn-block"><b>Become a Chum!</b></button>     
+
+                <!-- Login Page ~ Sign Up (Become a chum) Button -->
+                <div class="form-group">
+                    <div class="row justify-content-center">
+                        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+                            <button id="signUpButton" type="button" class="btn signUpButton btn-block"><b>Become a Chum!</b></button>     
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
+            
+            
         </div>
 
         <!-- Sign Up Page -->
@@ -130,6 +132,11 @@
                 <div class="col-12">
                     <h4 class="text-center">All Fields Required</h4>
                 </div>
+            </div>
+
+             <!-- Sign Up Page ~ Loading div -->
+             <div id="signUpLoadingDiv" class="row justify-content-center" style="display:none;">
+                <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
             </div>
 
             <!-- Sign Up Page ~ Validation Warning Alert -->
@@ -209,24 +216,24 @@
                     </div>
                 </div>
 
-            <!-- Sign Up Page ~ Register Button -->
-            <div class="form-group">
+                <!-- Sign Up Page ~ Register Button -->
+                <div class="form-group">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                                <button id="registerButton" type="submit" class="btn loginButton btn-block">Register</button>     
+                            </div>
+                        </div>
+                </div>  
+
+                <!-- Sign Up Page ~ Back Button -->
+                <div class="form-group">
                     <div class="row justify-content-center">
-                        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <button id="registerButton" type="submit" class="btn loginButton btn-block">Register</button>     
+                        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+                            <button id="signUpBackButton" type="button" class="btn loginButton btn-block">Back</button>     
                         </div>
                     </div>
-                </div>    
-            </form>
-
-            <!-- Sign Up Page ~ Back Button -->
-            <div class="form-group">
-                <div class="row justify-content-center">
-                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
-                        <button id="signUpBackButton" type="button" class="btn loginButton btn-block">Back</button>     
-                    </div>
                 </div>
-            </div>
+            </form>
         </div>
 
         <!-- Landing Page Div  Shows map and events nearby-->
@@ -252,55 +259,51 @@
             </div>
 
             <!-- Map view div -->
-            <div id="mapViewDiv" class="bodyContent" class="">
+            <div id="mapViewDiv" class="container-fluid bodyContent" class="">
                 <!-- Map will render here -->                   
             </div>
 
             <!-- List view div -->
-            <div id="listViewDiv" class="bodyContent" style="display:none;">
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
-                <p>LIST VIEW DIV</p>
+            <div id="listViewDiv" class="container-fluid bodyContent" style="display:none;">
+                <div id="listViewOutputDiv" class="container-fluid"></div>
             </div>
 
             <!-- Search view div -->
-            <div id="searchViewDiv" class="bodyContent" style="display:none;"> 
+            <div id="searchViewDiv" class="container-fluid bodyContent" style="display:none;"> 
                 SEARCH VIEW DIV
             </div>
 
-            <div id="calendarViewDiv" class="bodyContent" style="display:none;"> 
+            <div id="calendarViewDiv" class="container-fluid bodyContent" style="display:none;"> 
                 CALENDAR VIEW DIV
             </div>
 
-            <div id="messagesViewDiv" class="bodyContent" style="display:none;"> 
+            <div id="messagesViewDiv" class="container-fluid bodyContent" style="display:none;"> 
                 MESSAGES VIEW DIV
             </div>
 
-            <div id="profileViewDiv" class="bodyContent" style="display:none;"> 
+            <div id="profileViewDiv" class="container-fluid bodyContent" style="display:none;">
                 PROFILE VIEW DIV
+            </div>
+
+            <div id="eventViewDiv" class="container-fluid bodyContent" style="display:none;"> 
+                EVENT VIEW DIV
+                <div id="eventViewMapDiv" class="container-fluid">
+                    <!-- eventViewMap goes here -->
+                </div>
+
+                <div class="container-fluid" >
+                    <div class="row justify-content-center">
+                        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+                            <button id="eventViewBackButton" type="button" class="btn loginButton btn-block">Back</button>     
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+
+                <div id="eventViewOutputDiv" class="container"></div>
+
             </div>
 
 

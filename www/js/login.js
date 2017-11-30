@@ -1,15 +1,16 @@
-/*$.ajaxSetup({
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        "Access-Control-Allow-Origin": "*"
-    }
-});*/
+//Login vars
+var userLoginInput = $('#userLoginInput');
+var passwordLoginInput = $('#passwordLoginInput');
+var loginForm = $('#loginForm');
+var loginLoadingDiv = $('#loginLoadingDiv');
+
+//Signup vars
+var signUpLoadingDiv = $('#signUpLoadingDiv');
+var signUpForm = $('#signUpForm');
 
 function login(callback) {
-    
-        //Display loading wheel 
-        $('#loginLoadingDiv').fadeIn("fast");
+        resetLoadingDivs();
+        resetAlerts();
     
         var success = false;
         var statusMsg = "";
@@ -25,10 +26,61 @@ function login(callback) {
         if ($('#passwordLoginInput').val() !== undefined){
             password = $('#passwordLoginInput').val();
         }
-    
+
+        //Display loading wheel 
+        console.log("start loginForm fadeout");
+        $(loginForm).fadeOut("fast", function(){
+            console.log("loginForm fadeout completed, starting loginLoadingDiv fadeIn");
+            $(loginLoadingDiv).fadeIn("fast", function(){
+                $.get("http://chollachumsapi.azurewebsites.net/users/username/" + username, function( response ) {
+                    console.log(response);
+                    
+            
+                    //Check if results length does not equal 0 (this means user was found).
+                    if (response.data.length !== 0){
+                        
+                        //If user was found, check if supplied password matches password stored in the database.
+                        if (response.data[0].pword === password){
+                            statusMsg = "Passwords matched, authorized login";
+                            success = true;
+                        }
+                        else {
+                            console.log("in else for password matching");
+                            statusMsg = "<b>Your login details are incorrect!</b>";
+                            success = false;
+                            $(loginForm).fadeIn("fast");
+                            
+                            if($(loginLoadingDiv).css('display') !== 'none'){
+                                $(loginLoadingDiv).hide();
+                            }
+                        }
+                    }
+            
+                    //Callback after function completes
+                    callback(success, statusMsg);
+                    $('#loginLoadingDiv').fadeOut("fast");
+            
+                  }).fail(function(){
+                    statusMsg = "<b>Your login details are incorrect!</b>";
+                    success = false;
+                    $(loginForm).fadeIn();
+                    if($(loginLoadingDiv).css('display') !== 'none'){
+                        $(loginLoadingDiv).hide();
+                    }
+
+                    callback(success, statusMsg);
+                    $('#loginLoadingDiv').fadeOut("fast");
+
+                  })
+            });
+
+            
+        });
+    /*
         //--------------------------USING OUR API----------------------------------------------------------------------------
         $.get("http://chollachumsapi.azurewebsites.net/users/username/" + username, function( response ) {
             console.log(response);
+            
     
             //Check if results length does not equal 0 (this means user was found).
             if (response.data.length !== 0){
@@ -39,14 +91,25 @@ function login(callback) {
                     success = true;
                 }
                 else {
+                    console.log("in else for password matching");
                     statusMsg = "<b>Your login details are incorrect!</b>";
                     success = false;
+                    $(loginForm).fadeIn("fast");
+                    
+                    if($(loginLoadingDiv).css('display') !== 'none'){
+                        $(loginLoadingDiv).hide();
+                    }
                 }
             }
             //Results length is 0 meaning no user found by that username.
             else {
+                console.log("in else for response.data length");
                 statusMsg = "<b>Your login details are incorrect!</b>";
                 success = false;
+                $(loginForm).fadeIn();
+                if($(loginLoadingDiv).css('display') !== 'none'){
+                    $(loginLoadingDiv).hide();
+                }
             }
     
             //Callback after function completes
@@ -56,7 +119,7 @@ function login(callback) {
           });
     
           //--------------------------END USING OUR API----------------------------------------------------------------------------
-    
+    */
         /*
     
         var loginQuery = "SELECT * FROM users \
@@ -103,11 +166,11 @@ function login(callback) {
     }
     
     function createAccount(callback) {
+        resetLoadingDivs();
+        resetAlerts();
     
         var statusMsg = "";
         var user = undefined;
-        
-        //$('#loginLoadingDiv').fadeIn("fast");
     
         var nickname = $('#nickNameInputReg').val();
         var username = $('#usernameInputReg').val();
@@ -140,43 +203,54 @@ function login(callback) {
             "pword": pass
         };
     
-        console.log(user);
+        //console.log(user);
     
         //Convert user to JSON object for the request
         var userJson = JSON.stringify(user);
-    
-        $.ajax({
-            url: 'http://chollachumsapi.azurewebsites.net/users/',
-            type: 'post',
-            data: userJson,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type':'application/json'
-            },
-            dataType: 'json',
-            success: function (data) {
-                
-                var success = data.success;
-    
-                console.log(success);
-    
-                if (success){
-                    statusMsg = "<b>Woot! Welcome " + username + "</b>!<br>Try logging in!"
-                    console.log("Woot! Welcome " + username + "!<br>Try logging in!");
-                    callback(success, statusMsg, username);
-                }
-                else if (!success){
-                    statusMsg = "<b>That username is already taken!</b><br>Please choose another!"
-                    console.log("That username is already taken!<br>Please choose another!");
-                    callback(success, statusMsg);
-                }
-                else {
-                    statusMsg = "Error connecting to server!"
-                    console.log("Error connecting to server!");
-                    callback(success, statusMsg);
-                }
-            }
+
+        //Display loading wheel 
+        $(signUpForm).fadeOut("fast", function(){
+            $(signUpLoadingDiv).fadeIn("fast", function(){
+                $.ajax({
+                    url: 'http://chollachumsapi.azurewebsites.net/users/',
+                    type: 'post',
+                    data: userJson,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type':'application/json'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        
+                        var success = data.success;
+            
+                        console.log(success);
+            
+                        if (success){
+                            statusMsg = "<b>Woot! Welcome " + username + "</b>!<br>Try logging in!"
+                            console.log("Woot! Welcome " + username + "!<br>Try logging in!");
+                            callback(success, statusMsg, username);
+                        }
+                        else if (!success){
+                            statusMsg = "<b>That username is already taken!</b><br>Please choose another!"
+                            console.log("That username is already taken!");
+        
+                            $(signUpLoadingDiv).fadeOut("fast", function(){
+                                $(signUpForm).fadeIn("fast");
+                                callback(success, statusMsg);
+                            });
+                        }
+                        else {
+                            statusMsg = "Error connecting to server!"
+                            console.log("Error connecting to server!");
+                            callback(success, statusMsg);
+                        }
+                    }
+                });
+            });
         });
+    
+        
     
         /*
         $.post( "http://chollachumsapi.azurewebsites.net/users", userJson, function( data ) {
