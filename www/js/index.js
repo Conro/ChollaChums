@@ -22,8 +22,8 @@ var signUpPageAlert = $('#signUpPageAlert')
 //Map vars
 var mapScriptCreated = false;
 var mapElement = undefined;
-var markers = [];
-var neighborhoods = [];
+var homePageMarkers = [];
+var initialEvents = [];
 var curLatLng = undefined;
 
 //Home page vars
@@ -42,6 +42,9 @@ var eventViewDiv = $('#eventViewDiv');
 var eventViewOutputDiv = $('#eventViewOutputDiv');
 var eventsModified = true;
 var eventDetailsDesto = "";
+var homePageMapViewHeader = $('#homePageMapViewHeader');
+var homePageMapViewSubHeader = $('#homePageMapViewSubHeader');
+var homePageHeader = $('#homePageHeader');
 
 
 /* wait until all phonegap/cordova is loaded then call onDeviceReady*/
@@ -60,12 +63,21 @@ $( document ).ready(function() {
     var eventMap = undefined;
     $('#userLoginInput').focus();
 
-    neighborhoods = [
-        {id: 1, lat: 33.4166317, lng: -111.9341069, title: "Zelda Fans Unite!"},
-        {id: 2, lat: 33.416989, lng: -111.933010, title: "Animal Crossing OP Lorem"},
-        {id: 3, lat: 33.416211, lng: -111.938084, title: "I NEED FRIENDS :("},
-        {id: 4, lat: 33.415487, lng: -111.931947, title: "Hey I just met you. And this is crazy"}
-      ];
+      //localStorage.clear();
+
+      if(checkForUser()){
+        $('#loginPageDiv').hide();
+        $('#homePageDiv').fadeIn();         
+        $("#exploreButton").click();
+        if(!mapScriptCreated){
+            loadMapScript('initMap');
+        }
+      }
+      else{
+        $('#loginPageDiv').fadeIn();
+      }
+
+
 });
 
 /*====================*/
@@ -75,53 +87,42 @@ $( document ).ready(function() {
 //Drops markers on map
 function drop() {
     clearMarkers();
-    console.log(neighborhoods);
-    for (var i = 0; i < neighborhoods.length; i++) {
-        addMarkerWithTimeout(neighborhoods[i], i * 200);
+    console.log(initialEvents);
+    for (var i = 0; i < initialEvents.data.length; i++) {
+        addMarkerWithTimeout(initialEvents.data[i], i * 200);
     }
 }
 
-//Function that is called when a user wants to see event info. Event = event_id, source = where the function call originated
-function goToEvent(event, source){
-    $(eventViewOutputDiv).empty();
+function addNewMarker(event, map) {
 
-    event = neighborhoods[event-1];
+    var location = {lat: event.lat, lng: event.lng};
+    var content = event.name;
+    var infowindow = new google.maps.InfoWindow()
 
-    console.log("go to event clicked");
-
-    //already have the ID so i can just look it up in the array? Unless I need more info I don't have
-    console.log("call API for event id: "+ event);
-
-    //Tell me where you came from so I can go back to the right screen
-    eventDetailsDesto = "";
-    eventDetailsDesto = source;
-
-    //Hide wherver you came from and show the eventViewDiv
-    $(source).fadeOut(function(){
-        $(eventViewDiv).fadeIn();
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        title: event.name,
+        animation: google.maps.Animation.DROP
     });
 
-    $(eventViewOutputDiv).append("<p>Event name: " + event.title + "</p><p>Event id: "
-                            + event.id)
-
-                            
-    //createEventViewMap("eventViewMapDiv", event);
+    google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+        return function() {
+           infowindow.setContent(content);
+           infowindow.open(map,marker);
+        };
+    })(marker,content,infowindow)); 
 }
 
-$('#eventViewBackButton').click(function(){
-
-    $(eventViewDiv).fadeOut(function(){
-        $(eventDetailsDesto).fadeIn();
-    });
-
-});
-
-
-
 function addMarkerWithTimeout(location, timeout) {
+    console.log(location);
     var position = {lat: location.lat, lng: location.lng};
-    var title = location.title
-    var content = title + "<p><a href=\"#\" onclick=\"goToEvent(" + location.id + ", mapViewDiv); return false;\">Event Details</a></p>";
+    var title = location.name
+    var date = new Date(location.date).toString('M/d/yy');
+    var time = new Date(location.date).toString('h:mmtt')
+    //var content = location.name + "<p><a href=\"#\" onclick=\"goToEvent(" + location.event_id + ", mapViewDiv); return false;\">Event Details</a></p><p>"
+    //            + date + "</p>";
+    var content = "<b>" + location.name + "<br>" + date + "<br>" + time + "<br><a href=\"#\" onclick=\"goToEvent(" + location.event_id + ", mapViewDiv); return false;\">Event Details</a>";
     var infowindow = new google.maps.InfoWindow()
 
 
@@ -142,7 +143,7 @@ function addMarkerWithTimeout(location, timeout) {
             animation: google.maps.Animation.DROP
         });
 
-        markers.push(marker);
+        homePageMarkers.push(marker);
     
         google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
             return function() {
@@ -155,10 +156,10 @@ function addMarkerWithTimeout(location, timeout) {
 }
 
 function clearMarkers() {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
+    for (var i = 0; i < homePageMarkers.length; i++) {
+        homePageMarkers[i].setMap(null);
     }
-    markers = [];
+    homePageMarkers = [];
 }
 
 function initMap() {
@@ -191,8 +192,9 @@ function loadMapScript(callback) {
 	var script 		 = undefined;
 	var googleAPIKey = "AIzaSyBsGwlbU1AZYpGBwio6ll1kiwknKSuUIVk";
 	var googleAPIUrl = "https://maps.googleapis.com/maps/api/js";
+    var placeslib = "&libraries=places"
 
-	var srcURL 		 = googleAPIUrl + '?key=' + googleAPIKey 
+	var srcURL 		 = googleAPIUrl + '?key=' + googleAPIKey  + placeslib
 							+ '&callback=' + callback;
 
 	script 			 = document.createElement('script');
@@ -299,6 +301,10 @@ $("#loginForm").submit(function (e) {
         }
     });*/
     
+
+    if(checkForUser()){
+
+    }
 
     
     login(function(success, statusMsg){
@@ -408,13 +414,14 @@ $('.clickableDiv').click(function(e){
 
 $('#buttonHeaderLeft').click(function(){
     //Check length before working with array
-    if(neighborhoods.length !== 0){
+    if(initialEvents.data.length !== 0){
         //Check if the list needs to be rewritten (updated list)
         if(eventsModified){
             console.log("events modified, clearing output and rewriting");
             $('#listViewOutputDiv').empty();
-            neighborhoods.forEach(function(element) {
-                var event = "<div id=" + element.id + " onclick=\"goToEvent(" + element.id + ", listViewDiv); return false;\"><h4>" + element.title + "</h4><p>Description goes here!</p><p>Tags go here!</p><hr></div>"
+            initialEvents.data.forEach(function(element) {
+                console.log(element);
+                var event = "<div id=" + element.event_id + " onclick=\"goToEvent(" + element.event_id + ", listViewDiv); return false;\" class=\"listViewItem\"><h4>" + element.name + "</h4><p>" + element.description + "</p><p>Tags go here!</p><hr></div>"
                 $('#listViewOutputDiv').append(event);
             }, this);
 
@@ -436,22 +443,48 @@ function geolocationSuccess(position) {
                                         lng: -111.9341069});
 
     //var geoLocationASU 	= {lat: 33.4166317, lng: -111.9341069};
-    mapGeolocation(curLatLng, drop);
+    //mapGeolocation(curLatLng, drop);
 
-    //inject db call here for events by radius
+    getInitialEvents(function(){
+        mapGeolocation(curLatLng, drop());
+    })
 }
 
 function geolocationError() {
 	alert("Error in geolocation system!");
 }
 
+//function mapGeolocation(position) {
 function mapGeolocation(position, callback) {
     map.panTo(position);
-    $('#homePageMapViewHeader').html(neighborhoods.length + " Events");
-    $('#homePageMapViewSubHeader').html("near you...");
-    $('#homePageMapViewHeader').fadeIn();
-    $('#homePageMapViewSubHeader').fadeIn();
-    callback();
+    setEventCountHeaders();
+}
+
+function setEventCountHeaders(){
+    $(homePageMapViewHeader).html(initialEvents.data.length + " Events");
+    $(homePageMapViewSubHeader).html("near you...");
+    $(homePageMapViewHeader).fadeIn();
+    $(homePageMapViewSubHeader).fadeIn();
+}
+
+function hideEventCountHeaders(hide) {
+    if(hide){
+        $(homePageMapViewHeader).hide();
+        $(homePageMapViewSubHeader).hide();
+    }
+    else{
+        $(homePageMapViewHeader).show();
+        $(homePageMapViewSubHeader).show();
+    }
+}
+
+function toggleHomePageHeader(hide){
+    if(hide){
+        $(homePageHeader).hide();
+    }
+    else {
+        $(homePageHeader).show();
+    }
 }
 
 $(buttonHeaderLeft).click(function(){

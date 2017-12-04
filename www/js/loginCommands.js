@@ -1,8 +1,10 @@
+"use strict;"
 //Login vars
 var userLoginInput = $('#userLoginInput');
 var passwordLoginInput = $('#passwordLoginInput');
 var loginForm = $('#loginForm');
 var loginLoadingDiv = $('#loginLoadingDiv');
+var currentUser = {};
 
 //Signup vars
 var signUpLoadingDiv = $('#signUpLoadingDiv');
@@ -42,6 +44,7 @@ function login(callback) {
                         //If user was found, check if supplied password matches password stored in the database.
                         if (response.data[0].pword === password){
                             statusMsg = "Passwords matched, authorized login";
+                            setCurrentUser(response.data[0]);
                             success = true;
                         }
                         else {
@@ -320,12 +323,52 @@ function login(callback) {
         */
     }
     
-    function setCurrentUser() {
-    
+    function setCurrentUser(user) {
+        console.log("Setting current user...");
+        currentUser = {
+            user_id: user.user_id,
+            username: user.username,
+            screen_name: user.screen_name,
+            university: user.university,
+            email: user.email
+        }
+
+        localStorage.setItem('currentChollaUser', JSON.stringify(currentUser));
+        //localStorage.clear();
     }
     
     function getCurrentUser() {
-    
+        console.log("Getting current user...");
+
+        if(checkForUser()){
+            var currUserString = localStorage.getItem('currentChollaUser');
+            var currUser = JSON.parse(currUserString);
+            return currUser;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function checkForUser() {
+        if(localStorage.getItem('currentChollaUser') !== null){
+            console.log("user exists");
+            return true;
+        }          
+        else{
+            console.log("user doesn't exist");
+            return false;
+        }     
+    }
+
+    function getUserInfo(info) {      
+        if(checkForUser()){
+            if(info === "user_id"){
+                var currUserString = localStorage.getItem('currentChollaUser');
+                var currUser = JSON.parse(currUserString);
+                return currUser.user_id;    
+            } 
+        }
     }
     
     

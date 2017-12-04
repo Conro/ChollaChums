@@ -36,7 +36,7 @@
     <div class="d-flex align-items-center h-100">
 
         <!-- Login Page -->
-        <div id="loginPageDiv" class="container-fluid" style=""> 
+        <div id="loginPageDiv" class="container-fluid" style="display:none;"> 
 
             <!-- Login Page ~ Login Logo Img -->
             <div class="row">
@@ -285,13 +285,40 @@
                 PROFILE VIEW DIV
             </div>
 
-            <div id="eventViewDiv" class="container-fluid bodyContent" style="display:none;"> 
-                EVENT VIEW DIV
-                <div id="eventViewMapDiv" class="container-fluid">
-                    <!-- eventViewMap goes here -->
+            <div id="eventViewDiv" class="container-fluid bodyContent noPadding" style="display:none;">
+                <div id="eventViewHeader" class="container-fluid noPadding" style="">
+                    <div class="d-flex align-items-center">
+                        <div class="p-0 w-25 ml-auto">
+                            <button id="eventDetailsHeaderButton" onclick="toggleEventView(event, 'eventDetails')" class="btn eventViewHeaderButton btn-block eventTabLink active">Details</button>    
+                        </div>
+                        <div class="p-0 w-25 mr-auto">
+                            <button id="eventPeopleHeaderButton" onclick="toggleEventView(event, 'peopleViewDiv')" class="btn eventViewHeaderButton btn-block eventTabLink">People</button>  
+                        </div>
+                    </div>
                 </div>
+                
+                <div id="eventDetails" class="container-fluid noPadding eventDetailsContent">
+                    <div id="eventViewOutputDiv" class="container ">
+                            
+                    </div>
 
-                <div class="container-fluid" >
+                    <div id="eventViewMapDiv" class="" style="height:30vh;">
+                            <!-- eventViewMap goes here -->
+                    </div>
+
+                    <div class="container-fluid" style="">
+                        <div class="row justify-content-center">
+                            <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+                                <button id="attendingButton" type="button" class="btn loginButton btn-block">Attending</button>     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <input id="testInput" type="text" placeholder="test" style="display:none;">
+
+                <div class="container-fluid" style="">
                     <div class="row justify-content-center">
                         <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
                             <button id="eventViewBackButton" type="button" class="btn loginButton btn-block">Back</button>     
@@ -299,10 +326,18 @@
                     </div>
                 </div>
 
+        
+
+                
+
+                <div id="peopleViewDiv" class="container-fluid noPadding eventDetailsContent" style="display:none;">
+                    HALLO
+                </div>
+
                 
                 
 
-                <div id="eventViewOutputDiv" class="container"></div>
+                
 
             </div>
 
@@ -396,7 +431,9 @@
 	<script src="./js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="./js/bootstrap.bundle.min.js" type="text/javascript"></script>
     <script src="./js/mysql.js" type="text/javascript"></script>
-    <script src="./js/login.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./misc/datejs/date-en-US.js"></script>
+    <script src="./js/eventCommands.js" type="text/javascript"></script>
+    <script src="./js/loginCommands.js" type="text/javascript"></script>
     <script src="./js/index.js" type="text/javascript"></script>
     
     
