@@ -115,7 +115,7 @@ function addNewMarker(event, map) {
 }
 
 function addMarkerWithTimeout(location, timeout) {
-    console.log(location);
+    //console.log(location);
     var position = {lat: location.lat, lng: location.lng};
     var title = location.name
     var date = new Date(location.date).toString('M/d/yy');
@@ -124,16 +124,7 @@ function addMarkerWithTimeout(location, timeout) {
     //            + date + "</p>";
     var content = "<b>" + location.name + "<br>" + date + "<br>" + time + "<br><a href=\"#\" onclick=\"goToEvent(" + location.event_id + ", mapViewDiv); return false;\">Event Details</a>";
     var infowindow = new google.maps.InfoWindow()
-
-
-    /*
-    console.log("What was passed through the loop: ");
-    console.log(location);
-    console.log("Position created with parameter coords: ");
-    console.log(position);
-    console.log(title);*/
     
-
     window.setTimeout(function() {
 
         var marker = new google.maps.Marker({
@@ -421,7 +412,9 @@ $('#buttonHeaderLeft').click(function(){
             $('#listViewOutputDiv').empty();
             initialEvents.data.forEach(function(element) {
                 console.log(element);
-                var event = "<div id=" + element.event_id + " onclick=\"goToEvent(" + element.event_id + ", listViewDiv); return false;\" class=\"listViewItem\"><h4>" + element.name + "</h4><p>" + element.description + "</p><p>Tags go here!</p><hr></div>"
+                //element.description
+                var event = "<div id=" + element.event_id + " onclick=\"goToEvent(" + element.event_id + ", listViewDiv); return false;\" class=\"listViewItem\"><div class=\"container\"><h4>" 
+                + element.name + "</h4><p><i class=\"fa fa-map-marker\" aria-hidden=\"true\"></i>2.1 Miles Away</p><p>Tags go here!</p></div></div>"
                 $('#listViewOutputDiv').append(event);
             }, this);
 

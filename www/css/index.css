@@ -117,6 +117,7 @@ span i {
 .headerButton {
     background-color: transparent;
     border-radius: 0;
+    outline:0 !important;
 }
 
 .halfLeftPaddingButton {
@@ -144,6 +145,10 @@ span i {
     box-shadow: none;
 }
 
+.headerButton:focus, .active {
+    box-shadow: none;
+}
+
 #footer span {
     padding-top: 0.3vh;
     color: #ffffff;
@@ -166,8 +171,22 @@ span i {
     color:red;
 }
 
+.listViewItem {
+    border-bottom: 0.20em solid #648476
+}
+
+.listViewItem p {
+    margin-bottom: 0.5rem;
+    font-size: 2.5vh;
+}
+
 .listViewItem:hover {
     color: red;
+}
+
+.listViewItem h4 {
+    color:#e78e5c;
+    font-size: 3.5vh;
 }
 
 #eventViewOutputDiv p {

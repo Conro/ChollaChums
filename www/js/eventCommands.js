@@ -9,7 +9,7 @@ function getEventById(id, callback) {
 
     $.get("http://chollachumsapi.azurewebsites.net/events/getById/" + id, function( response ) {
         if(response.success === true){
-            console.log(response);
+            //console.log(response);
             callback(response);
         }
     }).fail(function(){
@@ -102,8 +102,10 @@ function goToEvent(eventId, source){
         //           V
         getEventById(eventId, function(response, statusMsg){
 
-            //Check if user is attending
-            getRSVP(undefined, getUserInfo("user_id"), eventId);
+            //Check if user is attending and set button accordingly
+            getRSVP(function(result){
+                setAttendButton(result);
+            }, getUserInfo("user_id"), eventId);
 
             if(response){
                 $(eventViewDiv).fadeIn(function(){
@@ -202,28 +204,37 @@ function setRSVP(callback, userid, eventid){
             console.log(response);
             if(response.data.attendingStatus === 1){
                 console.log("userId: " + userid + " is attending eventid: " + eventid );
+                result = true;
             }
             else{
                 console.log("userId: " + userid + " is NOT attending eventid: " + eventid );
+                result = false;
             }
-            //callback(response);
+
+            callback(result);
         }
     })
 }
 
 function getRSVP(callback, userid, eventid) {
+
+    var result = false;
+
     $.get("http://chollachumsapi.azurewebsites.net/events/rsvpStatus?userid=" + userid + "&eventid=" + eventid , function( response ) {
-        
+
         console.log(response);
         if(response.success === true){
             console.log("userId: " + userid + " is attending eventid: " + eventid );
-            $(eventViewOutputDiv).append("<p>USER IS ATTENDING THIS EVENT</p>");
+            //$(eventViewOutputDiv).append("<p>USER IS ATTENDING THIS EVENT</p>");
+            result = true;
         }
         else{
             console.log("userId: " + userid + " is NOT attending eventid: " + eventid );
-            $(eventViewOutputDiv).append("<p>USER IS ATTENDING THIS EVENT</p>");
+            //$(eventViewOutputDiv).append("<p>USER IS ATTENDING THIS EVENT</p>");
+            result = false;
         }
-        
+
+        callback(result);
     })
 }
 
@@ -232,6 +243,8 @@ $('#eventViewBackButton').click(function(){
     //$(buttonHeaderRight).show();
     $(eventViewDiv).fadeOut(function(){
         $(eventDetailsDesto).fadeIn();
+        $(buttonHeaderLeft).fadeIn();
+        $(buttonHeaderRight).fadeIn();
     });
     //toggleEventViewHeader(true);
     //toggleHomePageHeader(false);
@@ -239,6 +252,45 @@ $('#eventViewBackButton').click(function(){
 });
 
 $('#attendingButton').click(function(){
-    setRSVP(undefined, getUserInfo('user_id'), currentEvent);
+    setRSVP(function(result){
+        setAttendButton(result)
+    }, getUserInfo('user_id'), currentEvent);
+});
+
+function setAttendButton(value) {
+    if(value) {
+        $('#attendingButton').html("Changed My Mind!")
+    }
+    else{
+        $('#attendingButton').html("Attend!")        
+    }
+}
+
+function getAttendees(callback, eventid) {
+    $.get("http://localhost:8000/events/attendees/" + eventid, function( response ) {
+        
+        console.log(response);
+        if(response.success === true){
+            console.log("getting attendees for eventid: " + eventid);
+            //$(eventViewOutputDiv).append("<p>USER IS ATTENDING THIS EVENT</p>");
+        }
+        else{
+            console.log("userId: " + userid + " is NOT attending eventid: " + eventid );
+            //$(eventViewOutputDiv).append("<p>USER IS ATTENDING THIS EVENT</p>");
+        }
+
+        callback(response);
+    })
+}
+
+$('#eventPeopleHeaderButton').click(function(){
+
+    $('#peopleViewOutputDiv').empty();
+
+    getAttendees(function(response){
+        for(var i = 0; i < response.data.length; i++) {
+            $('#peopleViewOutputDiv').append(response.data[i].username + "<br>");
+        };
+    }, 4);
 });
 

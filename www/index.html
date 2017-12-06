@@ -264,8 +264,8 @@
             </div>
 
             <!-- List view div -->
-            <div id="listViewDiv" class="container-fluid bodyContent" style="display:none;">
-                <div id="listViewOutputDiv" class="container-fluid"></div>
+            <div id="listViewDiv" class="container-fluid bodyContent noPadding" style="display:none;">
+                <div id="listViewOutputDiv" class="container-fluid noPadding"></div>
             </div>
 
             <!-- Search view div -->
@@ -313,25 +313,24 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="container-fluid" style="">
+                        <div class="row justify-content-center">
+                            <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+                                <button id="eventViewBackButton" type="button" class="btn loginButton btn-block">Back</button>     
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 
                 
                 <input id="testInput" type="text" placeholder="test" style="display:none;">
-
-                <div class="container-fluid" style="">
-                    <div class="row justify-content-center">
-                        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
-                            <button id="eventViewBackButton" type="button" class="btn loginButton btn-block">Back</button>     
-                        </div>
-                    </div>
-                </div>
-
-        
-
                 
-
                 <div id="peopleViewDiv" class="container-fluid noPadding eventDetailsContent" style="display:none;">
-                    HALLO
+                    <div id="peopleViewOutputDiv" class="container ">
+                            
+                    </div>
                 </div>
 
                 
@@ -434,6 +433,7 @@
     <script type="text/javascript" src="./misc/datejs/date-en-US.js"></script>
     <script src="./js/eventCommands.js" type="text/javascript"></script>
     <script src="./js/loginCommands.js" type="text/javascript"></script>
+    <script src="./js/searchCommands.js" type="text/javascript"></script>
     <script src="./js/index.js" type="text/javascript"></script>
     
     
