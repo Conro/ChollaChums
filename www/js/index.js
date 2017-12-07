@@ -26,6 +26,9 @@ var markers = [];
 var neighborhoods = [];
 var curLatLng = undefined;
 
+//Messages vars
+var messages = [];
+
 //Home page vars
 var buttonHeaderLeft = $('#buttonHeaderLeft');
 var buttonHeaderRight = $('#buttonHeaderRight');
