@@ -267,7 +267,7 @@ function setAttendButton(value) {
 }
 
 function getAttendees(callback, eventid) {
-    $.get("http://localhost:8000/events/attendees/" + eventid, function( response ) {
+    $.get("http://chollachumsapi.azurewebsites.net/events/attendees/" + eventid, function( response ) {
         
         console.log(response);
         if(response.success === true){

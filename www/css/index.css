@@ -220,6 +220,84 @@ span i {
     /*border-bottom: 0.25em solid #648476;  */
 }
 
+/*Messages*/
+
+.clickable {
+    
+}
+    
+#messagesViewDiv { background-color: #ffffff; /*white*/ }
+
+#messagehome { position: absolute; left:0; right:0; }
+.msg-row>.d-table-cell { border-bottom: .125em solid #648476; padding:.25em; }
+.msg-row{
+    height: 8vh;
+    padding: 1em;
+    background-color: #f5f5f5;
+}
+/* new message button */
+.new-msg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+}
+
+
+
+/* sent messages */
+#viewmessage{ height:80vh; }
+#messagebox {
+    /*display: table;*/
+    overflow:   none;
+    position:   relative;
+    width:      100%;
+    height:     auto;
+}
+#chatmessages {
+    overflow:   auto;
+    height: 100%;
+}
+.receivedmsg, .sentmsg {
+    border-radius:  0.75rem;
+    overflow-wrap:  break-word;
+    word-wrap:      break-word;
+    max-width:      40vw;
+    min-width:      initial;
+    padding:        0.3125rem;
+    margin:         0.3125rem;
+}
+.fa-user-circle     { color: #276359; margin: 0.3125rem; font-size:2em; }
+.usericon, .usermsg { float:left; padding-right: 0.3125rem; }
+.msg-row>.usericon  { font-size: 1.5em; }
+
+.msgtext       { margin-bottom: 0; }
+.msgtext .small{ color:#cccccc; }
+.receivedmsg   { background: #E6E6E6; color:#000; float:left;  clear:both; }
+.sentmsg       { background: #8ebba7; color:#fff; float:right; clear:both; }
+
+.msgtime                { color:#cccccc; font-size:0.8em; font-style:italic; }
+.s-message>.msgtime     { float:right; clear:both; padding-left:0.3125rem; padding-right:0.3125rem; }
+.r-message              { float:left; clear:both; }
+
+#sendmessage{
+    position:           absolute;
+    left:               0;
+    background-color:   #ffffff;
+    width:              100vw;
+    border-top: 2px solid #276359;
+
+}
+#messagetextbox, #submitbtn{
+    margin-top: 0.3125rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    display: table-cell;
+    vertical-align: middle;
+}
+#messagetextbox, #messagetextbox:hover, #messagetextbox:focus { border:none; outline:none; box-shadow:none; }
+
+
 
 
 

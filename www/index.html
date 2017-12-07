@@ -277,8 +277,192 @@
                 CALENDAR VIEW DIV
             </div>
 
+            <!-- 
+            LOIS WAS HERE
+            -->
             <div id="messagesViewDiv" class="container-fluid bodyContent" style="display:none;"> 
-                MESSAGES VIEW DIV
+                <!--
+                    MESSAGE HOME PAGE =====================================================================================
+                -->
+                    <div id="messagehome" class="d-table w-100" >
+                        <div class="msg-row d-table-row w-100" onclick="showMessage()">
+                            <div class="d-table-cell">
+                                <div class="usericon d-table-cell float-left"><i class="fa fa-user-circle"></i></div>
+                                <div class="d-table-cell float-left">
+                                    <div class="h6 font-weight-bold text-truncate">King Slime (big-slimy)</div>
+                                    <div class="msgtext small text-truncate">
+                                        sounds good :)
+                                    </div>
+                                </div>
+                                <div class="float-right">
+                                        <span class="h6" style="float:right;">3:43 p.m.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="msg-row d-table-row w-100" onclick="showMessage()">
+                            <div class="d-table-cell">
+                                <div class="usericon d-table-cell float-left"><i class="fa fa-user-circle"></i></div>
+                                <div class="d-table-cell float-left">
+                                    <div class="h6 font-weight-bold text-truncate">King Slime (big-slimy)</div>
+                                    <div class="msgtext small text-truncate">
+                                        sounds good :)
+                                    </div>
+                                </div>
+                                <div class="float-right">
+                                        <span class="h6" style="float:right;">3:43 p.m.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <!--
+                        SHOW SENT MESSAGES ====================================================================================
+                    -->
+                    <div id="viewmessage" style="display:none;" >
+                        <div id="messagebox">
+                            <div id="chatmessages" class="d-table w-100">
+                                
+                                <div class="r-message">
+                                    <div class="msgtime">
+                                        <span class="usericon"><i class="fa fa-user-circle"></i>  big-slimy at 1:23 p.m.</span>
+                                    </div>
+                                    
+                                    <div class="receivedmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class=" msgtext small">
+                                                hey.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="receivedmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class=" msgtext small">
+                                                you're going to the holiday party right?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="receivedmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                I think you're in my cis class
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="receivedmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                I'm the one wearing a green hat every day
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="s-message">
+                                    <div class="msgtime">ppeach1 at 2:10 p.m.</div>
+                                    <div class="sentmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                Yeah you sit behind me! :)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="r-message">
+                                    <div class="msgtime">
+                                        <span class="usericon"><i class="fa fa-user-circle"></i>  big-slimy at 2:14 p.m.</span> 
+                                    </div>
+                                    
+                                    <div class="receivedmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                do you want to walk to the party together?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="receivedmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                I dont know anyone else haha
+                                            </p>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="s-message">
+                                    <div class="msgtime">ppeach1 at 2:22 p.m.</div>
+                                    <div class="sentmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                Sure, do you live near Hassy?
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="r-message">
+                                    <div class="msgtime">
+                                        <span class="usericon"><i class="fa fa-user-circle"></i>  big-slimy at 3:43 p.m.</span>
+                                    </div>
+                                    <div class="receivedmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                sorry, had class.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="receivedmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                pretty close to there, yea
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="s-message">
+                                    <div class="msgtime">ppeach1 at 4:01 p.m.</div>
+                                    <div class="sentmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                Great, I can pick you up outside.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="sentmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                5:00?
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="r-message">
+                                    <div class="msgtime">
+                                        <span class="usericon"><i class="fa fa-user-circle"></i>  big-slimy at 3:43 p.m.</span>
+                                    </div>
+                                    <div class="receivedmsg d-table-row">
+                                        <div class="usermsg">
+                                            <p class="msgtext small">
+                                                sounds good :)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                        </div>
+                        <div id="sendmessage" class="d-table-row">
+                            <form name="messageform" action="" class="form-inline form-check">
+                                <input name="messagetextbox" type="text" id="messagetextbox" class="col col-sm" placeholder="Send message" />
+                                <input name="submitbtn" type="submit" id="submitbtn" class="btn btn-primary" value="Send" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="profileViewDiv" class="container-fluid bodyContent" style="display:none;">
