@@ -68,7 +68,7 @@ h4 {
 }
 
 
-#mapViewDiv, #listViewDiv, #searchViewDiv, #calendarViewDiv, #messagesViewDiv, #profileViewDiv, #eventViewDiv {
+#mapViewDiv, #listViewDiv, #searchViewDiv, #calendarViewDiv, #messagesViewDiv, #profileViewDiv, #eventViewDiv, #homePageDiv {
     height:  83vh;
     overflow-y: auto
  }
@@ -167,8 +167,18 @@ span i {
     margin-bottom: 0;
 }
 
+.basicButtonText {
+    font-size: 2.5vh;
+    white-space:normal !important;
+    word-wrap: break-word; 
+}
+
 .testclass, .testclas span {
     color:red;
+}
+
+#listViewDiv {
+    background-color: #ffffff;
 }
 
 .listViewItem {
@@ -181,7 +191,7 @@ span i {
 }
 
 .listViewItem:hover {
-    color: red;
+    color: #648476;
 }
 
 .listViewItem h4 {
@@ -190,7 +200,8 @@ span i {
 }
 
 #eventViewOutputDiv p {
-    font-size: 2.5vh;
+    font-size: 2.4vh;
+    margin-bottom: 0.5rem;
 }
 
 #eventViewHeader {
@@ -199,7 +210,7 @@ span i {
 
 .eventViewHeaderButton {
     background-color: transparent;
-    color: #ffffff;
+    color: #648476;
     font-weight: 500;
     outline:0 !important;
     border-radius: 0;
@@ -220,6 +231,73 @@ span i {
     /*border-bottom: 0.25em solid #648476;  */
 }
 
+.attending {
+    background-color: grey;
+}
+
+#searchInput {
+    margin: 10px 0 10px 0;
+    box-shadow: none;
+    background-color: #ffffff;
+    border: 2px solid #8EBBA7
+}
+
+#searchViewDiv {
+    background-color: rgb(224, 220, 220);
+}
+
+.distanceButton {
+    border: 1px solid #8EBBA7;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    background-color: #ffffff;
+    font-size: 2vh;
+    font-weight: 500;
+}
+
+.distanceButton:active{
+    outline: none !important;
+    box-shadow: none;
+}
+
+.distanceButton:focus {
+    outline: none !important;
+    box-shadow: none;
+    border-bottom:2px solid #C28D10;
+}
+
+#tagsHeaderRow {
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.tagSpanPrimary {
+    border-radius: 5px;
+    padding: 2px;
+    margin: 2px;
+    background-color: #8EBBA7;
+    border: 2px solid #648476;
+    color: #ffffff ;
+}
+
+.tagSpanSecondary {
+    border-radius: 5px;
+    padding: 2px;
+    margin: 2px;
+    background-color: #ffffff;
+    border: 2px solid #648476;
+}
+
+.tagRow {
+    height: 5vh;
+}
+
+#searchViewFormTopSection {
+    height: 60vh;
+}
+
+
 /*Messages*/
 
 .clickable {
@@ -228,7 +306,7 @@ span i {
     
 #messagesViewDiv { background-color: #ffffff; /*white*/ }
 
-#messagehome { position: absolute; left:0; right:0; }
+/*#messagehome { position: absolute; left:0; right:0; }*/
 .msg-row>.d-table-cell { border-bottom: .125em solid #648476; padding:.25em; }
 .msg-row{
     height: 8vh;
@@ -249,10 +327,11 @@ span i {
 #viewmessage{ height:80vh; }
 #messagebox {
     /*display: table;*/
-    overflow:   none;
+    overflow-y: auto;
     position:   relative;
     width:      100%;
     height:     auto;
+    height: 75vh;
 }
 #chatmessages {
     overflow:   auto;
@@ -286,7 +365,7 @@ span i {
     background-color:   #ffffff;
     width:              100vw;
     border-top: 2px solid #276359;
-
+    height: 8vh;
 }
 #messagetextbox, #submitbtn{
     margin-top: 0.3125rem;
@@ -297,6 +376,58 @@ span i {
 }
 #messagetextbox, #messagetextbox:hover, #messagetextbox:focus { border:none; outline:none; box-shadow:none; }
 
+
+/* ALEXIS */
+
+#profileTag
+{
+    background-color: #8EBBA7; 
+    border-color: #FFFFFF; 
+    border-top-left-radius: 5px; 
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px; 
+    border-bottom-right-radius: 5px; 
+    color: #ffffff; 
+    margin: 5px;
+}
+
+#editProfileButton
+{
+    margin: 30px; 
+    background-color: #8EBBA7;
+    color: #ffffff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px; 
+    border-bottom-right-radius: 5px; 
+    width:120px;
+    height:50px
+}
+
+#profileHeaderDiv
+{
+    height: 20%; 
+    background-color: #FFFFFF; 
+    border-bottom-color: #214f2d;
+}
+
+#profileDetailsDiv
+{
+    height: 60%; 
+    background-color:#D3D3D3;
+}
+
+#profileFooterDiv
+{
+    height: 20%; 
+    background-color: #FFFFFF; 
+    border-top-color: #214f2d;
+}
+
+.attendeeParagraph {
+    font-size: 4vh;
+    color: #648476;
+}
 
 
 

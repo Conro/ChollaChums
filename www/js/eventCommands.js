@@ -74,11 +74,16 @@ function toggleEventViewHeader(hide) {
 
 //Function that is called when a user wants to see event info. Event = event_id, source = where the function call originated
 function goToEvent(eventId, source){
+
+    currentEvent = eventId;
+
     //hideEventCountHeaders(true);
     $(eventViewOutputDiv).empty();
     $(buttonHeaderLeft).hide();
     $(buttonHeaderRight).hide();
 
+    //Set header for eventDetails
+    setPageHeader("eventDetails");
     
     currentEvent = eventId;
     var event = $.grep(initialEvents.data, function(e){ return e.event_id == eventId; })
@@ -111,9 +116,9 @@ function goToEvent(eventId, source){
                 $(eventViewDiv).fadeIn(function(){
                     var date = new Date(response.data[0].date).toString('M/d/yy h:mmtt');
 
-                    $(eventViewOutputDiv).append("<p><b>Event Name:</b> " + response.data[0].name + "</p><p><b>Description: </b>" + response.data[0].description 
+                    $(eventViewOutputDiv).append("<p><b>Event Name:</b> " + response.data[0].name + "</p><p><b>Host:</b> " + response.data[0].host + "</p><p><b>Description: </b>" + response.data[0].description 
                     + "</p><p><b>When: </b>" + date +"</p><p><b>Where: </b>" + response.data[0].location) + "</p>";
-                    createEventViewMap("eventViewMapDiv", event[0]);
+                    createEventViewMap("eventViewMapDiv", response.data[0]);
                 });
             }
             else{
@@ -122,30 +127,6 @@ function goToEvent(eventId, source){
                 });
             }   
         });
-    });
-
-    var input = document.getElementById('testInput');
-    var searchBox = new google.maps.places.SearchBox(input);
-
-    searchBox.addListener('places_changed', function() {
-        var places = searchBox.getPlaces();
-        console.log(places);
-
-        //location = {lat: places[0].geometry.location.lat, lng: places[0].geometry.location.lng}     
-        //console.log(location);
-
-        if (places.length == 0) {
-          return;
-        }
-
-        var marker = new google.maps.Marker({
-            position: places[0].geometry.location,
-            map: eventMap,
-            title: places[0].name,
-            animation: google.maps.Animation.DROP
-        });
-
-
     });
 }
 
@@ -194,10 +175,6 @@ function toggleEventView(event, tabName) {
     event.currentTarget.className += " active";
 }
 
-function setAttendingButton(action) {
-
-}
-
 function setRSVP(callback, userid, eventid){
     $.get("http://chollachumsapi.azurewebsites.net/events/rsvp?userid=" + userid + "&eventid=" + eventid , function( response ) {
         if(response.success === true){
@@ -242,6 +219,11 @@ $('#eventViewBackButton').click(function(){
     //$(buttonHeaderLeft).show();
     //$(buttonHeaderRight).show();
     $(eventViewDiv).fadeOut(function(){
+        if($('#searchViewForm').css('display') === 'none'){
+            setPageHeader("searchResults");
+        }else{
+            setPageHeader("home");
+        }
         $(eventDetailsDesto).fadeIn();
         $(buttonHeaderLeft).fadeIn();
         $(buttonHeaderRight).fadeIn();
@@ -258,11 +240,19 @@ $('#attendingButton').click(function(){
 });
 
 function setAttendButton(value) {
+
+    console.log($('#attendingButton').hasClass("attending"));
+
     if(value) {
-        $('#attendingButton').html("Changed My Mind!")
+        $('#attendingButton').html("Attending")
+        $('#attendingButton').toggleClass("attending");
     }
     else{
-        $('#attendingButton').html("Attend!")        
+        $('#attendingButton').html("I'm Attending!")
+
+        if($('#attendingButton').hasClass("attending")){
+            $('#attendingButton').toggleClass("attending") 
+        }
     }
 }
 
@@ -289,8 +279,8 @@ $('#eventPeopleHeaderButton').click(function(){
 
     getAttendees(function(response){
         for(var i = 0; i < response.data.length; i++) {
-            $('#peopleViewOutputDiv').append(response.data[i].username + "<br>");
+            $('#peopleViewOutputDiv').append( "<p class=\"attendeeParagraph\"><span class=\"fa fa-user-o\"></span>&nbsp;" + response.data[i].username + "</p>");
         };
-    }, 4);
+    }, currentEvent);
 });
 

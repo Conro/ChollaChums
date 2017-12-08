@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>*** CHANGE ME ***</title>
+	<title>Cholla Chums</title>
 
 	<meta name="viewport" 
 		  content="width=device-width, user-scalable=no, 
@@ -100,7 +100,7 @@
                 <div class="form-group">
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                            <button disabled id="loginButton" type="submit" class="btn loginButton btn-block">Login</button>     
+                            <button disabled id="loginButton" type="submit" class="btn loginButton btn-block basicButtonText">Login</button>     
                         </div>
                     </div>
                 </div>
@@ -108,8 +108,8 @@
                 <!-- Login Page ~ Sign Up (Become a chum) Button -->
                 <div class="form-group">
                     <div class="row justify-content-center">
-                        <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
-                            <button id="signUpButton" type="button" class="btn signUpButton btn-block"><b>Become a Chum!</b></button>     
+                        <div class="col-7 col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                            <button id="signUpButton" type="button" class="btn signUpButton btn-block basicButtonText"><b>Become a Chum!</b></button>     
                         </div>
                     </div>
                 </div>
@@ -134,8 +134,8 @@
                 </div>
             </div>
 
-             <!-- Sign Up Page ~ Loading div -->
-             <div id="signUpLoadingDiv" class="row justify-content-center" style="display:none;">
+            <!-- Sign Up Page ~ Loading div -->
+            <div id="signUpLoadingDiv" class="row justify-content-center" style="display:none;">
                 <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
             </div>
 
@@ -188,8 +188,6 @@
                                             <option value="Arizona State University" >Arizona State University</option>
                                             <option value="Northern Arizona University" >Northern Arizona University</option>
                                             <option value="University of Arizona" >University of Arizona</option>
-                                            <option>placeholder</option>
-                                            <option>placeholder</option>
                                     </select>
                             </div>
                         </div>
@@ -240,12 +238,9 @@
         <div id="homePageDiv" class="container-fluid noPadding" style="display:none">
             <div id="homePageHeader" class="container-fluid noPadding fixed-top">
                 <div class="d-flex justify-content-end align-items-center align-items-start">
-                    <div class="p-1">
+                    <div class="p-1 mr-auto">
                         <h5 id="homePageMapViewHeader" style="display:none;"></h5>
                         <h6 id="homePageMapViewSubHeader" style="display:none;"></h6>
-                    </div>
-                    <div class="mr-auto ml-auto p-0">
-                        <a id="mapToLoginButton" class="btn btn-danger" href="#">B</a>
                     </div>
                     <div class="p-0">
                             <!--<a id="buttonHeaderLeft" class="btn btn-default" href="#"><i id="buttonHeaderLeftIcon" class="fa fa-list-ul headerIcon" title="Event List"></i></a>-->
@@ -269,8 +264,81 @@
             </div>
 
             <!-- Search view div -->
-            <div id="searchViewDiv" class="container-fluid bodyContent" style="display:none;"> 
-                SEARCH VIEW DIV
+            <div id="searchViewDiv" class="container-fluid bodyContent noPadding" style="display:none;"> 
+                <div id="searchViewForm" class="container-fluid">
+                    <form id="searchForm" name="searchForm">
+                        <div id="searchViewFormTopSection">
+                            <div class="row justify-content-center">
+                                <div class="col-12">
+                                    <input id="searchInput" type="text" class="form-control text-center" name="" placeholder="Keywords, interests" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4>Distance</h4>
+                                </div>
+                            </div>
+
+                            <div id="distanceButtonsDiv" class="row justify-content-center">
+                                <div class="col-2 noPadding">
+                                    <button class="btn btn-block distanceButton">Any</button>
+                                </div>
+                                <div class="col-2 noPadding">
+                                    <button class="btn btn-block distanceButton">1 mi</button>
+                                </div>
+                                <div class="col-2 noPadding">
+                                    <button class="btn btn-block distanceButton">5 mi</button>
+                                </div>
+                                <div class="col-2 noPadding">
+                                    <button class="btn btn-block distanceButton">10 mi</button>
+                                </div>
+                                <div class="col-2 noPadding">
+                                    <button class="btn btn-block distanceButton">25 mi</button>
+                                </div>
+                            </div>
+
+                            <div id="tagsHeaderRow" class="row">
+                                <div class="col-12">
+                                    <h4>Tags</h4>
+                                </div>
+                            </div>
+
+                            <div class="row tagRow">
+                                <div class="col-12">
+                                    <span class="tagSpanPrimary">zelda</span><span class="tagSpanPrimary">video games</span><span class="tagSpanPrimary">not studying</span>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-6">
+                                    <hr style="border-top: 2px solid #8EBBA7">
+                                </div>
+                            </div>
+
+                            <div class="row tagRow">
+                                <div class="col-12">
+                                    <span class="tagSpanSecondary">sleeping</span><span class="tagSpanSecondary">breathing</span><span class="tagSpanSecondary">animal crossing</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="searchFooter" class="container-fluid noPadding">
+                            <div class="row justify-content-center">
+                                <div class="col-7">
+                                    <button id="searchButton" type="submit" class="btn btn-block btn-default signUpButton basicButtonText">
+                                        Search <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>                
+                </div>
+
+                <div id="searchViewResults" class="container-fluid noPadding" style="display:none;">
+                    <div id="searchResultsOutput">
+                    </div>
+                </div>
             </div>
 
             <div id="calendarViewDiv" class="container-fluid bodyContent" style="display:none;"> 
@@ -280,7 +348,7 @@
             <!-- 
             LOIS WAS HERE
             -->
-            <div id="messagesViewDiv" class="container-fluid bodyContent" style="display:none;"> 
+            <div id="messagesViewDiv" class="container-fluid bodyContent noPadding" style="display:none;"> 
                 <!--
                     MESSAGE HOME PAGE =====================================================================================
                 -->
@@ -455,18 +523,45 @@
                                 </div>
 
                         </div>
-                        <div id="sendmessage" class="d-table-row">
+                    </div>
+                    <div id="sendmessage" class="d-table-row">
                             <form name="messageform" action="" class="form-inline form-check">
                                 <input name="messagetextbox" type="text" id="messagetextbox" class="col col-sm" placeholder="Send message" />
                                 <input name="submitbtn" type="submit" id="submitbtn" class="btn btn-primary" value="Send" />
                             </form>
                         </div>
-                    </div>
                 </div>
             </div>
 
             <div id="profileViewDiv" class="container-fluid bodyContent" style="display:none;">
-                PROFILE VIEW DIV
+                <div id="profileHeaderDiv" class="container-fluid" >
+                    <div class="row justify-content-center">
+                        <div class="col-6">
+                                <img src="./img/chollalogin.JPG">                 
+                        </div>
+                        <div class="col-6">
+                            Johnny Appleseed
+                        </div>
+                    </div>    
+                </div>
+
+                <div id="profileDetailsDiv" class="container-fluid">
+                    <div>
+                        <p style="margin: 0"><strong>Description</strong></p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget suscipit neque. Duis a erat quis massa tincidunt cursus. Sed est sem, rutrum non nunc vitae, sagittis vulputate libero. Sed ut ullamcorper dolor, a blandit mauris. Vivamus in leo libero. Vivamus porta ex a consequat viverra. </p>
+                        <p style="margin: 0"><strong>Tags</strong></p>
+                        <p><strong>Top 3</strong> - <em>tap to (de)select top tags</em></p>
+                        <span id="profileTag">baking</span><span id="profileTag">mario</span><span id="profileTag">racing</span>
+                        <p><em>Enter tags to add more, hold down to remove</em></p>
+                    </div>
+                </div>
+
+                <div id="profileFooterDiv" class="container-fluid">
+                    <div class="row justify-content-center">                      
+                        <button id="editProfileButton">Edit Profile</button>
+                        <a id="mapToLoginButton" class="btn btn-danger btn-block" href="#">B</a>
+                    </div>
+                </div>
             </div>
 
             <div id="eventViewDiv" class="container-fluid bodyContent noPadding" style="display:none;">
@@ -492,36 +587,26 @@
 
                     <div class="container-fluid" style="">
                         <div class="row justify-content-center">
-                            <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
-                                <button id="attendingButton" type="button" class="btn loginButton btn-block">Attending</button>     
+                            <div class="col-7 col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                <button id="attendingButton" type="button" class="btn loginButton btn-block basicButtonText">Attending</button>     
                             </div>
                         </div>
                     </div>
-
+                    <br>
                     <div class="container-fluid" style="">
                         <div class="row justify-content-center">
                             <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
-                                <button id="eventViewBackButton" type="button" class="btn loginButton btn-block">Back</button>     
+                                <button id="eventViewBackButton" type="button" class="btn loginButton btn-block basicButtonText">Back</button>     
                             </div>
                         </div>
                     </div>
-
                 </div>
-                
-                
-                <input id="testInput" type="text" placeholder="test" style="display:none;">
                 
                 <div id="peopleViewDiv" class="container-fluid noPadding eventDetailsContent" style="display:none;">
                     <div id="peopleViewOutputDiv" class="container ">
                             
                     </div>
                 </div>
-
-                
-                
-
-                
-
             </div>
 
 
@@ -547,68 +632,6 @@
             </div>
         </div>
     </div>
-<!--
-         Landing Page Div  Shows map and events nearby
-        <div id="homePageDiv" class="container-fluid noPadding" style="display:none">
-            <div id="homePageHeader" class="container-fluid noPadding">
-                <div class="d-flex justify-content-end align-items-center">
-                    <div class="mr-auto p-0">
-                        <a id="mapToLoginButton" class="btn btn-danger" href="#">
-                            <i class="fa fa-trash-o fa-lg"></i> BACK</a>
-                    </div>
-                    <div class="p-0">
-                            <a class="btn btn-default" href="#"><i class="fa fa-list-ul headerIcon" title="Event List"></i></a>
-                    </div>
-                    <div class="p-0">
-                            
-                            <a class="btn btn-default" href="#"><i class="fa fa-search headerIcon" title="Align Left"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div id="mapDiv" class="">
-                Map will render here                  
-            </div>
-            <div id="footer" class="container-fluid">
-                <div class="row">
-                    <div class="col-3">Explore Placeholder</div>
-                    <div class="col-3">Calendar Placeholder</div>
-                    <div class="col-3">Messeges Placeholder</div>
-                    <div class="col-3">Profile Placeholder</div>
-                </div>
-            </div>
-        </div>
-    </div> 
-
-
-    <div id="homePageDiv" class="container-fluid noPadding" style="display:none">
-            <div id="homePageHeader" class="container-fluid">
-                <div class="row">
-                    <div class="col-8 col-sm-10 col-md-10">
-                        <a id="mapToLoginButton" class="btn btn-danger align-content-center align-items-center" href="#">
-                            <i class="fa fa-trash-o fa-lg"></i> BACK</a>
-                    </div>
-                    <div class="col-2 col-sm-1 col-md-1 noPadding">
-                            <a class="btn btn-default" href="#"><i class="fa fa-bars headerIcon" title="Event List"></i></a>
-                    </div>
-                    <div class="col-2 col-sm-1 col-md-1 noPadding">
-                            
-                            <a class="btn btn-default" href="#"><i class="fa fa-search headerIcon" title="Align Left"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div id="mapDiv" class="">                
-            </div>
-            <div id="footer" class="container-fluid">
-                <div class="row">
-                    <div class="col-3">Explore Placeholder</div>
-                    <div class="col-3">Calendar Placeholder</div>
-                    <div class="col-3">Messeges Placeholder</div>
-                    <div class="col-3">Profile Placeholder</div>
-                </div>
-            </div>
-        </div>-->
-
-    
 
     <script src="cordova.js" type="text/javascript"></script>
 	<script src="./js/jquery-3.2.1.min.js" type="text/javascript"></script>

@@ -1,8 +1,3 @@
-/*
- * index.js
- * Put your JavaScript in here
- */
-
 "use strict;"
 
 //Page divs
@@ -24,6 +19,7 @@ var mapScriptCreated = false;
 var mapElement = undefined;
 var homePageMarkers = [];
 var initialEvents = [];
+var searchEvents = [];
 var curLatLng = undefined;
 
 //Home page vars
@@ -35,6 +31,8 @@ var mapViewDiv = $('#mapViewDiv');
 var listViewDiv = $('#listViewDiv');
 var listViewOutputDiv = $('#listViewOutputDiv');
 var searchViewDiv = $('#searchViewDiv');
+var searchViewForm = $('#searchViewForm');
+var searchViewResults = $('#searchViewResults');
 var calendarViewDiv = $('#calendarViewDiv');
 var messagesViewDiv = $('#messagesViewDiv');
 var profileViewDiv = $('#profileViewDiv');
@@ -46,18 +44,16 @@ var homePageMapViewHeader = $('#homePageMapViewHeader');
 var homePageMapViewSubHeader = $('#homePageMapViewSubHeader');
 var homePageHeader = $('#homePageHeader');
 
+//Msgs page vars
+var messageHome = $('#messagehome');
+var viewMessage = $('#viewmessage');
+
 
 /* wait until all phonegap/cordova is loaded then call onDeviceReady*/
 document.addEventListener("deviceready", onDeviceReady, false);
 
 //only for mobile
 function onDeviceReady(){
-    console.log("JS loaded, DOC READY");
-}
-
-
-$( document ).ready(function() {
-    console.log("DOC READY");
     mapElement = document.getElementById('mapViewDiv');
     var map = undefined;
     var eventMap = undefined;
@@ -65,34 +61,54 @@ $( document ).ready(function() {
 
       //localStorage.clear();
 
-      if(checkForUser()){
+    if(checkForUser()){
         $('#loginPageDiv').hide();
         $('#homePageDiv').fadeIn();         
         $("#exploreButton").click();
+
+        //Check if map is created already, no use in doing it twice
         if(!mapScriptCreated){
             loadMapScript('initMap');
         }
-      }
-      else{
-        $('#loginPageDiv').fadeIn();
-      }
+    }
+    else{
+    $('#loginPageDiv').fadeIn();
+    }
+}
 
 
+$( document ).ready(function() {
+    mapElement = document.getElementById('mapViewDiv');
+    var map = undefined;
+    var eventMap = undefined;
+    $('#userLoginInput').focus();
+
+      //localStorage.clear();
+
+    if(checkForUser()){
+        $('#loginPageDiv').hide();
+        $('#homePageDiv').fadeIn();         
+        $("#exploreButton").click();
+
+        //Check if map is created already, no use in doing it twice
+        if(!mapScriptCreated){
+            loadMapScript('initMap');
+        }
+    }
+    else{
+    $('#loginPageDiv').fadeIn();
+    }
 });
 
-/*====================*/
-/* put functions here */
-/*====================*/
-
-//Drops markers on map
+//Drops inital markers on map
 function drop() {
     clearMarkers();
-    console.log(initialEvents);
     for (var i = 0; i < initialEvents.data.length; i++) {
         addMarkerWithTimeout(initialEvents.data[i], i * 200);
     }
 }
 
+//Adds new marker
 function addNewMarker(event, map) {
 
     var location = {lat: event.lat, lng: event.lng};
@@ -115,13 +131,10 @@ function addNewMarker(event, map) {
 }
 
 function addMarkerWithTimeout(location, timeout) {
-    //console.log(location);
     var position = {lat: location.lat, lng: location.lng};
     var title = location.name
     var date = new Date(location.date).toString('M/d/yy');
     var time = new Date(location.date).toString('h:mmtt')
-    //var content = location.name + "<p><a href=\"#\" onclick=\"goToEvent(" + location.event_id + ", mapViewDiv); return false;\">Event Details</a></p><p>"
-    //            + date + "</p>";
     var content = "<b>" + location.name + "<br>" + date + "<br>" + time + "<br><a href=\"#\" onclick=\"goToEvent(" + location.event_id + ", mapViewDiv); return false;\">Event Details</a>";
     var infowindow = new google.maps.InfoWindow()
     
@@ -239,8 +252,6 @@ $("#signUpForm").submit(function(e){
     resetLoadingDivs();
     resetAlerts();
 
-    console.log("signUpForm submitted");
-
     var pass = $('#passInputReg').val();
     var confPass = $('#passConfInputReg').val();
     
@@ -325,6 +336,7 @@ $("#mapToLoginButton").click(function (e) {
         $(loginPageDiv).fadeIn("fast");
         $(loginForm).fadeIn("fast");
         resetAlerts();
+        localStorage.clear();
     });
 
 });
@@ -399,8 +411,7 @@ function createAlert(type, pdiv, div, msg) {
 }
 
 $('.clickableDiv').click(function(e){
-    console.log(e);
-    console.log("Div clicked");
+
 })
 
 $('#buttonHeaderLeft').click(function(){
@@ -408,13 +419,11 @@ $('#buttonHeaderLeft').click(function(){
     if(initialEvents.data.length !== 0){
         //Check if the list needs to be rewritten (updated list)
         if(eventsModified){
-            console.log("events modified, clearing output and rewriting");
             $('#listViewOutputDiv').empty();
             initialEvents.data.forEach(function(element) {
-                console.log(element);
                 //element.description
-                var event = "<div id=" + element.event_id + " onclick=\"goToEvent(" + element.event_id + ", listViewDiv); return false;\" class=\"listViewItem\"><div class=\"container\"><h4>" 
-                + element.name + "</h4><p><i class=\"fa fa-map-marker\" aria-hidden=\"true\"></i>2.1 Miles Away</p><p>Tags go here!</p></div></div>"
+                var event = "<div id=" + element.event_id + " onclick=\"goToEvent(" + element.event_id + ", listViewDiv); return false;\" class=\"listViewItem\"><div class=\"container-fluid\"><h4>" 
+                + element.name + "</h4><p><i class=\"fa fa-map-marker\" aria-hidden=\"true\"></i>&nbsp2.1 Miles Away</p><p>Tags go here!</p></div></div>"
                 $('#listViewOutputDiv').append(event);
             }, this);
 
@@ -425,8 +434,6 @@ $('#buttonHeaderLeft').click(function(){
 });
 
 function geolocationSuccess(position) {
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
     //current lat/lng
 	//curLatLng = new google.maps.LatLng({lat: position.coords.latitude, 
     //                                    lng: position.coords.longitude});
@@ -454,8 +461,7 @@ function mapGeolocation(position, callback) {
 }
 
 function setEventCountHeaders(){
-    $(homePageMapViewHeader).html(initialEvents.data.length + " Events");
-    $(homePageMapViewSubHeader).html("near you...");
+    setPageHeader("home");
     $(homePageMapViewHeader).fadeIn();
     $(homePageMapViewSubHeader).fadeIn();
 }
@@ -479,7 +485,7 @@ function toggleHomePageHeader(hide){
         $(homePageHeader).show();
     }
 }
-
+//Annoying logic for header left button
 $(buttonHeaderLeft).click(function(){
     if($(mapViewDiv).css('display') !== 'none'){
         $(mapViewDiv).hide();
@@ -496,6 +502,7 @@ $(buttonHeaderLeft).click(function(){
     }
 })
 
+//Annoying logic for header right button
 $(buttonHeaderRight).click(function(){
     if($(searchViewDiv).css('display') === 'none'){
         if($(listViewDiv).css('display') !== 'none'){
@@ -505,13 +512,18 @@ $(buttonHeaderRight).click(function(){
         $(buttonHeaderLeftIcon).hide();
         $(buttonHeaderRightIcon).toggleClass("fa-search");
         $(buttonHeaderRightIcon).toggleClass("fa-times-circle-o");
+        setPageHeader("search");
         $(searchViewDiv).show();
+        $('#searchViewForm').show();
+        $('#searchViewResults').hide();
+        $('#searchInput').val("");
     }
     else{
         $(searchViewDiv).hide();
         $(buttonHeaderLeftIcon).show();
         $(buttonHeaderRightIcon).toggleClass("fa-times-circle-o");
         $(buttonHeaderRightIcon).toggleClass("fa-search");
+        setPageHeader("home");
 
         if($(buttonHeaderLeftIcon).hasClass("fa-map-o")){
             $(listViewDiv).show();
@@ -523,17 +535,11 @@ $(buttonHeaderRight).click(function(){
     }
 })
 
-$('#testButton').click(function(){
-    console.log("testButton clicked");
-});
-
 function showTab(event, tabName) {
-    console.log("showTab called");
     // Declare all variables
     var i, tabContentElems, tabLinkElems;
 
     if(tabName === "calendarViewDiv" || tabName === "messagesViewDiv" || tabName === "profileViewDiv"){
-        console.log(tabName + " div is passed");
 
         if($(buttonHeaderLeft).css('display') !== 'none'){
             $(buttonHeaderLeft).hide();
@@ -541,7 +547,6 @@ function showTab(event, tabName) {
         }
     }
     else{
-        console.log(tabName + " div is passed(ELSE)");
 
         if($(buttonHeaderLeft).css('display') === 'none'){
             $(buttonHeaderLeft).show();
@@ -567,13 +572,9 @@ function showTab(event, tabName) {
     event.currentTarget.className += " active";
 }
 
-$('#exploreButton').click(function(){
-    console.log("test jquery click");
-})
-
+//Resets the loading divs. Can specify 1is need be.
 function resetLoadingDivs(div){
     if(div === undefined){
-        console.log("in undefined block");
         $(signUpLoadingDiv).hide();
         $(loginLoadingDiv).hide();
     }
@@ -581,3 +582,62 @@ function resetLoadingDivs(div){
         $(div).hide();
     }
 }
+
+//Used to set the page header
+function setPageHeader(state) {
+    if(state === "home"){
+        //Set headers text
+        $(homePageMapViewHeader).html(initialEvents.data.length + " Events");
+        $(homePageMapViewSubHeader).html("near you...");
+
+        //Make sure they are visible lol
+        $(homePageMapViewHeader).show();
+        $(homePageMapViewSubHeader).show();
+    } 
+    else if(state === "search"){
+        $(homePageMapViewHeader).html("Search Events");
+        $(homePageMapViewSubHeader).hide();
+
+        $(homePageMapViewHeader).show();
+    }
+    else if(state === "eventDetails"){
+        $(homePageMapViewHeader).html("Event Details");
+        $(homePageMapViewSubHeader).hide();
+
+        $(homePageMapViewHeader).show();
+    }
+    else if(state === "searchResults") {
+        $(homePageMapViewHeader).html("Search Results");
+        $(homePageMapViewSubHeader).hide();
+
+        $(homePageMapViewHeader).show();
+    }
+}
+
+//Toggles views
+function toggleView(desto, source) {
+    $(source).fadeOut(function(){
+        $(desto).fadeIn();
+    });
+}
+
+//Toggles the msg view
+function toggleMessage(desto){
+    var msgHome = document.getElementById('messagehome');
+    msgHome.setAttribute('style', 'display:none !important');
+    $(desto).show();
+}
+
+//Function called when a convo is clicked
+function showMessage(){
+    toggleMessage(viewMessage);
+}
+
+//This has to be empty for some reason to make the entire app work lol.
+$('#exploreButton').click(function(){
+
+});
+
+$('#messagesButton').click(function(){
+    toggleView(messageHome, viewMessage);
+});

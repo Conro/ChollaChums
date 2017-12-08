@@ -182,20 +182,6 @@ function login(callback) {
         var pass = $('#passInputReg').val();
         var confPass = $('#passConfInputReg').val();
     
-        /*
-        var name = "testedfhsfhds";
-        var username = "conor111222222";
-        var email = "test";
-        var uni = "test";
-        var pass = "test";
-        var confPass = "test";
-        console.log(name);
-        console.log(username);
-        console.log(email);
-        console.log(uni);
-        console.log(pass);
-        console.log(confPass);*/
-    
         //Create object that holds the new user data
         var user =
         {
